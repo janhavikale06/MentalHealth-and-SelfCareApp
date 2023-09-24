@@ -3,10 +3,12 @@ import 'package:mental_health/home_page.dart';
 import 'package:mental_health/sign_up.dart';
 import 'package:email_validator/email_validator.dart';
 
+// ignore: camel_case_types
 class signIn extends StatefulWidget {
   const signIn({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SignInState createState() => _SignInState();
 }
 
