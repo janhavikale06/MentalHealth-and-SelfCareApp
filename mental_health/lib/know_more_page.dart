@@ -48,6 +48,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
               onChanged: (value) {
                 username = value;
               },
+              
               decoration: InputDecoration(
                 labelText: 'Username',
                 fillColor: const Color(0xFFD8B4F8),
@@ -69,6 +70,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
               onChanged: (value) {
                 age = value;
               },
+
               decoration: InputDecoration(
                 labelText: 'Age',
                 fillColor: const Color(0xFFD8B4F8),
@@ -90,6 +92,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
               onChanged: (value) {
                 gender = value;
               },
+
               decoration: InputDecoration(
                 labelText: 'Gender',
                 fillColor: const Color(0xFFD8B4F8),
