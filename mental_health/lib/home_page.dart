@@ -2,6 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:mental_health/know_more_page.dart';
+import 'package:mental_health/tracker_page.dart';
+import 'package:mental_health/selfcare_page.dart';
+import 'package:mental_health/mentalhealth_page.dart';
+
 
 // ignore: camel_case_types
 class homePage extends StatefulWidget {
@@ -21,7 +25,7 @@ class _HomePageState extends State<homePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.only( top: 8),
+          padding: EdgeInsets.only(top: 8),
         ),
         Container(
           width: 412,
@@ -56,7 +60,7 @@ class _HomePageState extends State<homePage> {
             ),
           ),
         ),
-        
+
         Padding(
           padding: const EdgeInsets.only(left: 100, top: 50),
           child: Container(
@@ -74,7 +78,7 @@ class _HomePageState extends State<homePage> {
 
         // Add the RangeSlider below the image
         Padding(
-          padding: const EdgeInsets.only(left: 90, top: 1 , right: 100),
+          padding: const EdgeInsets.only(left: 90, top: 1, right: 100),
           child: RangeSlider(
             values: _moodRange,
             onChanged: (RangeValues values) {
@@ -122,6 +126,30 @@ class _HomePageState extends State<homePage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget selectedPage;
+
+    // Determine the selected page based on _currentIndex
+    switch (_currentIndex) {
+      case 0:
+        selectedPage = buildHomePage();
+        break;
+      case 1:
+        selectedPage = TrackersPage(); // Show the Trackers page
+        break;
+      case 2:
+        selectedPage = SelfCarePage(); // Show the Self Care page
+        break;
+      case 3:
+        selectedPage = MentalHealthPage(); // Show the Mental Health page
+        break;
+      case 4:
+        // You can add a ProfilePage widget here if needed
+        selectedPage = const Center(child: Text('Profile Page'));
+        break;
+      default:
+        selectedPage = buildHomePage();
+    }
+
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -131,9 +159,7 @@ class _HomePageState extends State<homePage> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: _currentIndex == 0
-            ? buildHomePage()
-            : const Center(child: Text('Other Pages')), // You can replace 'Other Pages' with your content
+        body: selectedPage, // Display the selected page
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           unselectedItemColor: Colors.white,

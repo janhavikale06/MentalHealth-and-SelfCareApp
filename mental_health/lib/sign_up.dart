@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health/home_page.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:mental_health/sign_in.dart';
 
 // ignore: camel_case_types
 class signUp extends StatefulWidget {
@@ -138,7 +139,7 @@ class _SignUpState extends State<signUp> {
                         },
                       ),
                       const SizedBox(
-                        height: 65,
+                        height: 60,
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -162,6 +163,30 @@ class _SignUpState extends State<signUp> {
                           'Sign up',
                           style: TextStyle(fontSize: 23, color: Color(0xFFAA77FF)),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const signIn()),
+                              );
+                            },
+                            child: const Text(
+                              'Sign In',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFFAA77FF),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
