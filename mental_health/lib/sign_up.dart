@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health/home_page.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:mental_health/sign_in.dart';
 
 // ignore: camel_case_types
-class signUp extends StatelessWidget {
-  const signUp({super.key});
+class signUp extends StatefulWidget {
+  const signUp({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<signUp> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  String? _usernameError;
+  String? _emailError;
+  String? _passwordError;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +39,8 @@ class signUp extends StatelessWidget {
               padding: const EdgeInsets.only(left: 55, top: 78),
               child: const Text(
                 'Create\nAccount',
-                style: TextStyle(fontSize: 50, color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 50, color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
@@ -32,91 +50,146 @@ class signUp extends StatelessWidget {
                 left: 35,
               ),
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        fillColor: const Color(0xFFD8B4F8),
-                        filled: true,
-                        hintText: 'Username',
-                        hintStyle: const TextStyle(color: Color(0xFFAA77FF)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          fillColor: const Color(0xFFD8B4F8),
+                          filled: true,
+                          hintText: 'Username',
+                          hintStyle: const TextStyle(color: Color(0xFFAA77FF)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Color(0xFFAA77FF)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          errorText: _usernameError,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Color(0xFFAA77FF)),
-                          borderRadius: BorderRadius.circular(10),
+                        style: const TextStyle(color: Colors.white),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Username is required';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          fillColor: const Color(0xFFD8B4F8),
+                          filled: true,
+                          hintText: 'Email',
+                          hintStyle: const TextStyle(color: Color(0xFFAA77FF)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Color(0xFFAA77FF)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          errorText: _emailError,
+                        ),
+                        style: const TextStyle(color: Colors.white),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Email is required';
+                          } else if (!EmailValidator.validate(value)) {
+                            return 'Invalid email format';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          fillColor: const Color(0xFFD8B4F8),
+                          filled: true,
+                          hintText: 'Password',
+                          hintStyle: const TextStyle(color: Color(0xFFAA77FF)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Color(0xFFAA77FF)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          errorText: _passwordError,
+                        ),
+                        style: const TextStyle(color: Colors.white),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password is required';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            // All fields are valid, continue with sign-up
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const homePage()),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF97DEFF),
+                          minimumSize: const Size(180, 60),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          side: const BorderSide(color: Color(0xFFD8B4F8), width: 2),
+                        ),
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(fontSize: 23, color: Color(0xFFAA77FF)),
                         ),
                       ),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                        fillColor: const Color(0xFFD8B4F8),
-                        filled: true,
-                        hintText: 'Email',
-                        hintStyle: const TextStyle(color: Color(0xFFAA77FF)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Color(0xFFAA77FF)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                      const SizedBox(
+                        height: 20,
                       ),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        fillColor: const Color(0xFFD8B4F8),
-                        filled: true,
-                        hintText: 'Password',
-                        hintStyle: const TextStyle(color: Color(0xFFAA77FF)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Color(0xFFAA77FF)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const signIn()),
+                              );
+                            },
+                            child: const Text(
+                              'Sign In',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFFAA77FF),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    const SizedBox(
-                      height: 65,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const homePage()),
-                        );
-                        // Handle sign up button press
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF97DEFF),
-                        minimumSize: const Size(180, 60), // Adjust button size
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        side: const BorderSide(color: Color(0xFFD8B4F8), width: 2), // Add border color
-                      ),
-                      child: const Text(
-                        'Sign up',
-                        style: TextStyle(fontSize: 23, color: Color(0xFFAA77FF)), // Adjust font size and color
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
