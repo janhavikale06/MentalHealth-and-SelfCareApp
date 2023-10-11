@@ -139,7 +139,7 @@ class _SignUpState extends State<signUp> {
                         },
                       ),
                       const SizedBox(
-                        height: 60,
+                        height: 50,
                       ),
                       ElevatedButton(
                         onPressed: () {

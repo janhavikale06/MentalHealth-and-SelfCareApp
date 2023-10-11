@@ -1,25 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:mental_health/profile_page.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mental_health/survey_page.dart';
 
 class KnowMorePage extends StatefulWidget {
   const KnowMorePage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _KnowMorePageState createState() => _KnowMorePageState();
 }
 
 class _KnowMorePageState extends State<KnowMorePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _profileNameController = TextEditingController();
 
   String? username;
   String? age;
-  String? gender;
+  String? selectedGender;
   String? location;
-  String? workStatus;
-  String? maritalStatus;
+  String? selectedWorkStatus;
+  String? selectedMaritalStatus;
+  String? goals;
 
-  // Custom validator for numeric age
+  List<String> genderOptions = ['Male', 'Female', 'Trans'];
+  List<String> workStatusOptions = ['Student', 'Employed', 'Homemaker', 'Unemployed', 'Retired'];
+  List<String> maritalStatusOptions = ['Single', 'Married', 'Divorced', 'Widowed'];
+
+  Future<void> _savePrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('profileName', _profileNameController.text);
+  }
+
+  void _collectUserData() {
+    // Collect user data and create a UserProfile object
+    UserProfile userProfile = UserProfile(
+      name: username!,
+      age: age!,
+      gender: selectedGender!,
+      location: location!,
+      workStatus: selectedWorkStatus!,
+      maritalStatus: selectedMaritalStatus!,
+      goals: goals!,
+      profilePhotoUrl: '', // You need to set the profile photo URL here
+    );
+
+    // Update the user profile in the provider
+    context.read<UserProfileProvider>().updateUserProfile(userProfile);
+
+    // Navigate to the Survey Page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SurveyPage()),
+    );
+  }
+
   String? validateAge(String? value) {
     if (value == null || value.isEmpty) {
       return 'Age is required';
@@ -30,7 +64,6 @@ class _KnowMorePageState extends State<KnowMorePage> {
     return null;
   }
 
-  // Helper function to check if a string consists of digits
   bool isNumeric(String? value) {
     if (value == null) {
       return false;
@@ -65,6 +98,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
               ),
               const SizedBox(height: 28),
               TextFormField(
+                controller: _profileNameController,
                 onChanged: (value) {
                   username = value;
                 },
@@ -90,6 +124,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
                   return null;
                 },
               ),
+
               const SizedBox(height: 21),
               TextFormField(
                 onChanged: (value) {
@@ -113,9 +148,21 @@ class _KnowMorePageState extends State<KnowMorePage> {
                 validator: validateAge, // Use the custom validator
               ),
               const SizedBox(height: 21),
-              TextFormField(
-                onChanged: (value) {
-                  gender = value;
+              DropdownButtonFormField<String>(
+                value: selectedGender,
+                items: genderOptions.map((String option) {
+                  return DropdownMenuItem<String>(
+                    value: option,
+                    child: Text(
+                      option,
+                      style: const TextStyle(color: Color(0xFFAA77FF)), // Text color
+                    ),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedGender = value;
+                  });
                 },
                 decoration: InputDecoration(
                   labelText: 'Gender',
@@ -167,9 +214,21 @@ class _KnowMorePageState extends State<KnowMorePage> {
                 },
               ),
               const SizedBox(height: 21),
-              TextFormField(
-                onChanged: (value) {
-                  workStatus = value;
+              DropdownButtonFormField<String>(
+                value: selectedWorkStatus,
+                items: workStatusOptions.map((String option) {
+                  return DropdownMenuItem<String>(
+                    value: option,
+                    child: Text(
+                      option,
+                      style: const TextStyle(color: Color(0xFFAA77FF)), // Text color
+                    ),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedWorkStatus = value;
+                  });
                 },
                 decoration: InputDecoration(
                   labelText: 'Work Status',
@@ -194,9 +253,21 @@ class _KnowMorePageState extends State<KnowMorePage> {
                 },
               ),
               const SizedBox(height: 21),
-              TextFormField(
-                onChanged: (value) {
-                  maritalStatus = value;
+              DropdownButtonFormField<String>(
+                value: selectedMaritalStatus,
+                items: maritalStatusOptions.map((String option) {
+                  return DropdownMenuItem<String>(
+                    value: option,
+                    child: Text(
+                      option,
+                      style: const TextStyle(color: Color(0xFFAA77FF)), // Text color
+                    ),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedMaritalStatus = value;
+                  });
                 },
                 decoration: InputDecoration(
                   labelText: 'Marital Status',
@@ -223,7 +294,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
               const SizedBox(height: 21),
               TextFormField(
                 onChanged: (value) {
-                  // Handle the input for goals
+                  goals = value;
                 },
                 decoration: InputDecoration(
                   labelText: 'Goals',
@@ -241,22 +312,20 @@ class _KnowMorePageState extends State<KnowMorePage> {
                 ),
                 style: const TextStyle(color: Colors.white),
               ),
-              const SizedBox(height: 22),
+
+              const SizedBox(height: 16),
               Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      // All fields are valid, continue to the next page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const profilePage()),
-                      );
+                      await _savePrefs(); // Save profile name
+                      _collectUserData(); // Collect user data and navigate
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF97DEFF),
-                    minimumSize: const Size(110, 47),
+                    minimumSize: const Size(100, 45),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -264,7 +333,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
                   ),
                   child: const Text(
                     'Next',
-                    style: TextStyle(fontSize: 28, color: Color(0xFFAA77FF)),
+                    style: TextStyle(fontSize: 25, color: Color(0xFFAA77FF)),
                   ),
                 ),
               ),
@@ -273,5 +342,38 @@ class _KnowMorePageState extends State<KnowMorePage> {
         ),
       ),
     );
+  }
+}
+
+class UserProfile {
+  final String name;
+  final String age;
+  final String gender;
+  final String location;
+  final String workStatus;
+  final String maritalStatus;
+  final String goals;
+  final String profilePhotoUrl;
+
+  UserProfile({
+    required this.name,
+    required this.age,
+    required this.gender,
+    required this.location,
+    required this.workStatus,
+    required this.maritalStatus,
+    required this.goals,
+    required this.profilePhotoUrl,
+  });
+}
+
+class UserProfileProvider with ChangeNotifier {
+  UserProfile? _userProfile;
+
+  UserProfile? get userProfile => _userProfile;
+
+  void updateUserProfile(UserProfile userProfile) {
+    _userProfile = userProfile;
+    notifyListeners();
   }
 }

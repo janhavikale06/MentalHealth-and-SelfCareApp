@@ -35,6 +35,12 @@ dependencies:
   flutter_svg: ^2.0.4
   flutter_blob: ^0.0.1
   email_validator: ^2.1.17
+  table_calendar: ^3.0.9
+  sqflite: ^2.0.0
+  path_provider: ^2.0.2
+  shared_preferences: ^2.2.1
+  provider: ^5.0.0
+  fl_chart: ^0.40.0
 
 dev_dependencies:
   flutter_test:

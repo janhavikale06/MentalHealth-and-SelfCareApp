@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mental_health/know_more_page.dart';
+import 'package:mental_health/profile_page.dart';
 import 'package:mental_health/tracker_page.dart';
 import 'package:mental_health/selfcare_page.dart';
 import 'package:mental_health/mentalhealth_page.dart';
@@ -120,6 +121,7 @@ class _HomePageState extends State<homePage> {
             ),
           ),
         ),
+        
       ],
     );
   }
@@ -134,17 +136,17 @@ class _HomePageState extends State<homePage> {
         selectedPage = buildHomePage();
         break;
       case 1:
-        selectedPage = TrackersPage(); // Show the Trackers page
+        selectedPage = const TrackersPage(); // Show the Trackers page
         break;
       case 2:
-        selectedPage = SelfCarePage(); // Show the Self Care page
+        selectedPage = const SelfCarePage(); // Show the Self Care page
         break;
       case 3:
         selectedPage = MentalHealthPage(); // Show the Mental Health page
         break;
       case 4:
         // You can add a ProfilePage widget here if needed
-        selectedPage = const Center(child: Text('Profile Page'));
+        selectedPage = ProfilePage();
         break;
       default:
         selectedPage = buildHomePage();
