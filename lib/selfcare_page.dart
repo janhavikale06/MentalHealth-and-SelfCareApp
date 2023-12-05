@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mental_health/pains_gains.dart';
+//import 'package:mental_health/pains_gains.dart';
 import 'package:mental_health/sleep_monitoring.dart';
 
 class SelfCarePage extends StatefulWidget {
@@ -103,7 +103,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
       backgroundColor: Colors.transparent,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.only(top: 60),
+          padding: const EdgeInsets.only(top: 75),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -205,89 +205,53 @@ class _SelfCarePageState extends State<SelfCarePage> {
                 ),
               ),
 
-              const SizedBox(height: 48.0),
+              const SizedBox(height: 70.0),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Pains & Gains Column
-                  TrackerColumn(
-                    imagePath: 'assets/images/pains_page.png',
-                    height: 130,
-                    width: 165,
-                    imagePadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-                    onPressed: () {
-                      // Navigate to Pains & Gains Page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const PainsGainsPage()),
-                      );
-                    },
-                  ),
                   // Sleep Monitoring Column
                   TrackerColumn(
-                    imagePath: 'assets/images/sleep_page.png',
-                    height: 150,
-                    width: 140,
-                    imagePadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.01),
-                    onPressed: () {
-                      // Navigate to Pains & Gains Page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SleepMonitoringPage()),
-                      );
-                    },
-                  ),
-                ],
-              ),
+                  imagePath: 'assets/images/sleeptracker.png',
+                  height: 123,
+                  width: 253,
+                  imagePadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.01),
+                  onPressed: () {
+                    // Navigate to Sleep Monitoring Page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SleepMonitoringPage()),
+                    );
+                  }, trackerName: '',
+                ),
+              ],
+            ),
 
-              const SizedBox(height: 1),
+            const SizedBox(height:6),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // Navigate to Sleep Monitoring Page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const PainsGainsPage()),
-                      );
-                    },
-                     style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: const Color(0xFFAA77FF),
-                      minimumSize: const Size(20, 40),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: const BorderSide(color: Color(0xFF97DEFF), width: 2),
-                      ),
-                    ),
-                    child: const Text(
-                      'Pains & Gains' , 
-                      style: TextStyle(fontSize: 17, color: Colors.white),
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center, // Center the buttons
+              children: [
+                ElevatedButton(
+                onPressed: () {
+                  // Navigate to Sleep Monitoring Page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SleepMonitoringPage()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: const Color(0xFFAA77FF),
+                  minimumSize: const Size(20, 40),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: const BorderSide(color: Color(0xFF97DEFF), width: 2),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Navigate to Sleep Monitoring Page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SleepMonitoringPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: const Color(0xFFAA77FF),
-                      minimumSize: const Size(20, 40),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: const BorderSide(color: Color(0xFF97DEFF), width: 2),
-                      ),
-                    ),
-                    child: const Text(
-                      'Sleep Monitoring' , 
-                      style: TextStyle(fontSize: 17, color: Colors.white),
+                ),
+                child: const Text(
+                  'Sleep Monitoring' ,
+                  style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   )
                 ],
@@ -314,7 +278,7 @@ class TrackerColumn extends StatelessWidget {
     required this.height,
     required this.width,
     required this.imagePadding,
-    required this.onPressed,
+    required this.onPressed, required String trackerName,
   });
 
   @override
