@@ -5,7 +5,6 @@ import 'package:mental_health/know_more_page.dart';
 
 void main() {
   runApp(const MyApp());
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -19,6 +18,7 @@ class MyApp extends StatelessWidget {
           create: (_) => UserProfileProvider(),
         ),
       ],
+      
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter UI',
