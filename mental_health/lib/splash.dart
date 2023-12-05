@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mental_health/login.dart';
+import 'package:mental_health/sign_up.dart';
 
 class Splash extends StatefulWidget {
   const Splash ({Key? key}) : super(key: key);
@@ -21,9 +21,7 @@ class _SplashState extends State<Splash> {
     Navigator.pushReplacement(
       context, 
       MaterialPageRoute(
-        builder: (context) => const Login(
-          
-    )));
+        builder: (context) => SignUpScreen()));
   }
 
   @override

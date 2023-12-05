@@ -1,12 +1,10 @@
 // ignore_for_file: unnecessary_string_interpolations
-
 import 'package:flutter/material.dart';
 import 'package:mental_health/know_more_page.dart';
 import 'package:mental_health/profile_page.dart';
 import 'package:mental_health/tracker_page.dart';
 import 'package:mental_health/selfcare_page.dart';
 import 'package:mental_health/mentalhealth_page.dart';
-
 
 // ignore: camel_case_types
 class homePage extends StatefulWidget {
@@ -25,22 +23,22 @@ class _HomePageState extends State<homePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 8),
-        ),
-        Container(
-          width: 412,
-          height: 297,
-          decoration: const BoxDecoration(
-            color: Color(0xFFD8B4F8),
-            image: DecorationImage(
-              image: AssetImage('assets/images/home_page1.jpg'),
-              fit: BoxFit.cover,
+        Padding(
+          padding: const EdgeInsets.only(left: 65, top: 35), // Adjust left and top values as needed
+          child: Container(
+            width: 280,
+            height: 260,
+            decoration: const BoxDecoration(
+              //color: Color(0xFFD8B4F8),
+              image: DecorationImage(
+                image: AssetImage('assets/images/home_page1.png'),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
         const Padding(
-          padding: EdgeInsets.only(left: 18, top: 25),
+          padding: EdgeInsets.only(left: 18, top: 20),
           child: Text(
             'Hello, Janhavi!',
             style: TextStyle(
@@ -68,9 +66,9 @@ class _HomePageState extends State<homePage> {
             width: 200,
             height: 90,
             decoration: const BoxDecoration(
-              color: Color(0xFFD8B4F8),
+              //color: Color(0xFFD8B4F8),
               image: DecorationImage(
-                image: AssetImage('assets/images/home_page2.jpg'),
+                image: AssetImage('assets/images/home_page2.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -99,29 +97,41 @@ class _HomePageState extends State<homePage> {
         ),
 
         Padding(
-          padding: const EdgeInsets.only(left: 27, top: 45),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const KnowMorePage()),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF97DEFF),
-              minimumSize: const Size(10, 40),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
+          padding: const EdgeInsets.only(left: 48 , top: 70), // Add left padding here
+          child: Column(
+            children: [
+              const Text(
+                'Let\'s get to know more about you',
+                style: TextStyle(fontSize: 21, color: Color(0xFFAA77FF)),
+              ),
+
+            // Add some spacing
+            const SizedBox(height: 10),
+
+            // Elevated button
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const KnowMorePage()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFAA77FF),
+                minimumSize: const Size(80, 36), // Adjust the size as needed
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7),
+                  side: const BorderSide(color: Color(0xFF97DEFF), width: 1),
+                ),
+              ),
+              child: const Text(
+                'Start',
+                style: TextStyle(fontSize: 21, color: Colors.white),
               ),
             ),
-            child: const Text(
-              'Let\'s get to know more about you',
-              style: TextStyle(fontSize: 22, color: Color(0xFFAA77FF)),
-            ),
-          ),
+          ],
         ),
-        
+      )      
       ],
     );
   }
@@ -146,7 +156,7 @@ class _HomePageState extends State<homePage> {
         break;
       case 4:
         // You can add a ProfilePage widget here if needed
-        selectedPage = ProfilePage();
+        selectedPage = const ProfilePage();
         break;
       default:
         selectedPage = buildHomePage();

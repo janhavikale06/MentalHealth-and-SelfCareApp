@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:mental_health/profile_page.dart';
 
@@ -146,7 +148,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   // Navigate to Profile Page
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                    MaterialPageRoute(builder: (context) => const ProfilePage()),
                   );
                 },
                   style: ElevatedButton.styleFrom(

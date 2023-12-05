@@ -136,10 +136,11 @@ class MoodTrackingDashboard extends StatelessWidget {
     final List<FlSpot> moodData = [
       const FlSpot(0, 3),
       const FlSpot(1, 2),
-      const FlSpot(2, 4),
-      const FlSpot(3, 1),
-      const FlSpot(4, 5),
+      const FlSpot(2, 4.5),
+      const FlSpot(3, 0.5),
+      const FlSpot(4, 4),
       const FlSpot(5, 2),
+      const FlSpot(5.6, 0),
     ];
 
     return Container(

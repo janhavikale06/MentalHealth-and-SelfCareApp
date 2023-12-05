@@ -1,73 +1,150 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:mental_health/mood_tracker.dart';
+import 'package:mental_health/Goals/creategoal.dart';
 import 'package:mental_health/habit_tracker.dart';
+import 'package:mental_health/mood_tracker.dart';
 import 'package:mental_health/social_tracker.dart';
 
 class TrackersPage extends StatelessWidget {
   const TrackersPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Add the Calendar widget here
-        const CalendarWidget(),
-        const SizedBox(height: 8),
-        // Mood Tracker and Habit Tracker side by side in one row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust the alignment as needed
-          children: [
-            // Mood Tracker Column
-            TrackerColumn(
-              imagePath: 'assets/images/moodtracker.png', // Replace with actual image path
-              trackerName: 'Mood Tracker',
-              height: 130,
-              width: 160,
-              imagePadding: const EdgeInsets.symmetric(horizontal: 16.0 , vertical: 4),
-              onPressed: () {
-                // Navigate to Mood Tracker Page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MoodTrackerPage()),
-                );
-              },
+Widget build(BuildContext context) {
+  return Stack(
+    children: [
+      Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 70),
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color:const Color.fromARGB(255, 195, 236, 255),
+                border: Border.all(color: const Color(0xFF97DEFF), width: 2),
+                borderRadius: BorderRadius.circular(7),
+              ),
+              child: Column(
+                children: [
+                  const Text(
+                    "Create New Goal",
+                    style: TextStyle(
+                      fontSize: 30, 
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFAA77FF),
+                      shadows: [
+                        Shadow(
+                          color: Color(0xFF97DEFF), 
+                          offset: Offset(-1, -1), 
+                          blurRadius: 5,
+                        ),
+                        Shadow(
+                          color: Colors.white,
+                          offset: Offset(1, 1),
+                          blurRadius: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Time to take on a challenge and elevate your life.",
+                    style: TextStyle(fontSize: 19, color: Color(0xFFAA77FF)),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Navigate to the next page for goal creation
+                      // Replace the following line with your navigation logic
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateGoal()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFAA77FF),
+                      minimumSize: const Size(100, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                    child: const Text(
+                      'Create',
+                      style: TextStyle(fontSize: 22, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            // Habit Tracker Column
-            TrackerColumn(
-              imagePath: 'assets/images/habitracker.png', // Replace with actual image path
-              trackerName: 'Habit Tracker',
-              height: 140,
-              width: 180,
-              imagePadding: const EdgeInsets.symmetric(horizontal: 16.0 , vertical: 0.01),
-              onPressed: () {
-                // Navigate to Habit Tracker Page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HabitTrackerPage()),
-                );
-              },
+          ),
+
+          const SizedBox(height:40),
+          const Text(
+            "Trackers",
+            //textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 30, 
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFAA77FF),
+              shadows: [
+                Shadow(
+                  color: Color(0xFF97DEFF), 
+                  offset: Offset(-1, -1), 
+                  blurRadius: 5,
+                ),
+                Shadow(
+                  color: Colors.white,
+                  offset: Offset(1, 1),
+                  blurRadius: 5,
+                ),
+              ],
+            ),
+            ),
+
+            const SizedBox(height: 17),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TrackerColumn(
+                  imagePath: 'assets/images/moodtracker1.png',
+                  trackerName: 'Mood Tracker',
+                  height: 150,
+                  width: 190,
+                  imagePadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MoodTrackerPage()),
+                    );
+                  },
+                ),
+                TrackerColumn(
+                  imagePath: 'assets/images/habitracker1.png',
+                  trackerName: 'Habit Tracker',
+                  height: 150,
+                  width: 190,
+                  imagePadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.01),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HabitTrackerPage(updateHabits: (List<Habit> updatedHabits) {})),
+                    );
+                  },
+                ),
+              ],
+            ),
+            Center(
+              child: TrackerColumn(
+                imagePath: 'assets/images/socialMtracker1.png',
+                trackerName: 'Social Media Apps Tracker',
+                height: 116,
+                width: 200,
+                imagePadding: const EdgeInsets.only(top: 10, bottom: 3),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SocialMediaTrackerPage()),
+                  );
+                },
+              ),
             ),
           ],
-        ),
-        // Empty space for spacing between rows
-        const SizedBox(height: 1),
-        // Social Tracker Column in the middle
-        Center(
-          child: TrackerColumn(
-            imagePath: 'assets/images/socialMtracker.png', // Replace with actual image path
-            trackerName: 'Social Media Apps Tracker',
-            height: 130,
-            width: 160,
-            imagePadding: const EdgeInsets.symmetric(horizontal: 10.0 , vertical: 10),
-            onPressed: () {
-              // Navigate to Social Tracker Page
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SocialMediaTrackerPage()),
-              );
-            },
-          ),
         ),
       ],
     );
@@ -77,26 +154,27 @@ class TrackersPage extends StatelessWidget {
 class TrackerColumn extends StatelessWidget {
   final String imagePath;
   final String trackerName;
-  final double height; // Specify height
-  final double width; // Specify width
-  final EdgeInsetsGeometry imagePadding; // Specify image padding
+  final double height;
+  final double width;
+  final EdgeInsetsGeometry imagePadding;
   final VoidCallback onPressed;
 
-  const TrackerColumn({super.key, 
+  const TrackerColumn({
+    Key? key,
     required this.imagePath,
     required this.trackerName,
     required this.height,
     required this.width,
     required this.imagePadding,
     required this.onPressed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: imagePadding, // Add image padding
+          padding: imagePadding,
           child: Image.asset(imagePath, height: height, width: width),
         ),
         ElevatedButton(
@@ -117,57 +195,6 @@ class TrackerColumn extends StatelessWidget {
         ),
         const SizedBox(height: 8),
       ],
-    );
-  }
-}
-
-class CalendarWidget extends StatefulWidget {
-  const CalendarWidget({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _CalendarWidgetState createState() => _CalendarWidgetState();
-}
-
-class _CalendarWidgetState extends State<CalendarWidget> {
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 32, left: 19, right: 19),
-      child: TableCalendar(
-        firstDay: DateTime(2000),
-        lastDay: DateTime(2050),
-        focusedDay: _focusedDay,
-        calendarFormat: _calendarFormat,
-        onFormatChanged: (format) {
-          setState(() {
-            _calendarFormat = format;
-          });
-        },
-        onDaySelected: (selectedDay, focusedDay) {
-          setState(() {
-            _selectedDay = selectedDay;
-            _focusedDay = focusedDay;
-          });
-        },
-        selectedDayPredicate: (day) {
-          return isSameDay(day, _selectedDay ?? DateTime.now());
-        },
-        calendarStyle: const CalendarStyle(
-          todayDecoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xFFAA77FF),
-          ),
-          selectedDecoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xFF97DEFF),
-          ),
-        ),
-      ),
     );
   }
 }

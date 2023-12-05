@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mental_health/exercise_screen.dart';
-import 'package:mental_health/journaling_screen.dart';
-import 'package:mental_health/meditation_screen.dart';
+import 'package:mental_health/exercise/exercise_screen.dart';
+import 'package:mental_health/journal/journaling_screen.dart';
+import 'package:mental_health/meditation/meditation_screen.dart';
 import 'package:mental_health/music_screen.dart';
 
 class MentalHealthPage extends StatelessWidget {
