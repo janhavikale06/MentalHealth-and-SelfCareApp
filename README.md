@@ -40,11 +40,9 @@ practices.
 3.  To facilitate user-to-user help, we must create interactive forums and discussion boards. 
 4.  The pillars of our strategy are personalization, expert cooperation, data security, community 
 participation, and iterative development. 
-
-1) Platforms: 
-• Android /  iOS mobile applications. 
-
-2) Technology Stack: 
+5. Platforms: 
+• Android /  iOS mobile applications.
+6. Technology Stack: 
 • Front-end: Flutter Dart.
 • Database: Firebase.
 • Cloud Services: Integration with cloud services for data backup and synchronization. 
