@@ -137,7 +137,7 @@ class _CreateGoal extends State<CreateGoal> {
                     onPressed: () {
                       // Navigate to the next page
                       // Replace the following line with your navigation logic
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const getfit()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const GetFit()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
@@ -190,7 +190,7 @@ class _CreateGoal extends State<CreateGoal> {
                     onPressed: () {
                       // Navigate to the next page
                       // Replace the following line with your navigation logic
-                      Navigator.push(context, MaterialPageRoute(builder: (context) =>const reducestress()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>const reduceStress()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 195, 236, 255),
@@ -243,7 +243,7 @@ class _CreateGoal extends State<CreateGoal> {
                     onPressed: () {
                       // Navigate to the next page
                       // Replace the following line with your navigation logic
-                      Navigator.push(context, MaterialPageRoute(builder: (context) =>const selfgrowth()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>const selfGrowth()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,

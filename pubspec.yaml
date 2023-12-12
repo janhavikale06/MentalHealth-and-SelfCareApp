@@ -35,7 +35,7 @@ dependencies:
   flutter_svg: ^2.0.4
   flutter_blob: ^0.0.1
   email_validator: ^2.1.17
-  table_calendar: ^3.0.8
+  table_calendar: ^3.0.0
   sqflite: ^2.0.0
   path_provider: ^2.0.2
   shared_preferences: ^2.2.1
@@ -43,9 +43,15 @@ dependencies:
   fl_chart: ^0.40.0
   video_player: ^2.8.1
   youtube_player_flutter: ^8.1.2
+  syncfusion_flutter_charts: ^19.3.47
+  flutter_rounded_date_picker: ^3.0.4
+  flutter_analog_clock: ^1.0.3
+  flutter_spinkit: ^5.0.0
+  flutter_local_notifications: ^9.0.0
   calendar_agenda:
     path: calendar_agenda/
   intl: ^0.17.0
+  timezone: ^0.8.0
   
 dev_dependencies:
   flutter_test:

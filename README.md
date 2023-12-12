@@ -1,51 +1,6 @@
-# Mental Health And Self Care App
+# mental_health
 
-
-## Specifications of the proposed ENTIRE SYSTEM: 
-                                            
-1. User Registration: 
-• User account creation and login. 
-• Onboarding process to gather user information and goals. 
-
- 
-2. Dashboard: 
-• Overview of user's progress, goals, and achievements. 
-• Visual representation of well-being and productivity metrics. 
-
- 
-3. Mental Health Support: 
-• Relaxation activities like Journaling, Meditation and Positive Reminders. 
-• Community support via User Groups & Meetups and Online Events for Connections. 
-
- 
-4. Trackers: 
-• Mood and Habit Tracking functionality. 
-• Social Media Apps Tracking. 
-
- 
-5. Self-Care: 
-• Empathy Map Self-Care and Pains & Gains Survey 
-• Monitoring sleep schedule. 
-
- 
-6. Data Security and Privacy: 
-• Strong data encryption for user information and personal data. 
-• Privacy settings to control data sharing and visibility. 
-                                  
-
-## Methodology proposed for achieving the end-result (output):
-1. We have done study on user preferences and mental health procedures, methods, and 
-practices. 
-2.  Designed prototypes and wireframes to represent user journeys. 
-3.  To facilitate user-to-user help, we must create interactive forums and discussion boards. 
-4.  The pillars of our strategy are personalization, expert cooperation, data security, community 
-participation, and iterative development. 
-5. Platforms: 
-• Android /  iOS mobile applications.
-6. Technology Stack: 
-• Front-end: Flutter Dart.
-• Database: Firebase.
-• Cloud Services: Integration with cloud services for data backup and synchronization. 
+A new Flutter project.
 
 ## Getting Started
 
