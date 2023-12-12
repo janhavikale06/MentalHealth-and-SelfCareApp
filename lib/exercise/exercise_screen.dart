@@ -42,10 +42,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 0, bottom:15),
+                  padding: const EdgeInsets.only(top: 0, bottom:20),
                   child: Container(
                     width: double.infinity,
-                    height: 158,
+                    height: 150,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/exercise_home.png'),
@@ -69,7 +69,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -124,7 +124,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -179,7 +179,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -234,7 +234,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),

@@ -36,10 +36,10 @@ class MeditationScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 0, bottom:15),
                   child: Container(
                     width: double.infinity,
-                    height: 155,
+                    height: 167,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/meditation_home.png'),
+                        image: AssetImage('assets/images/meditation_home1.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -60,7 +60,7 @@ class MeditationScreen extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -69,7 +69,7 @@ class MeditationScreen extends StatelessWidget {
                       children: [
                         // 1st Column - Image
                         Image.asset(
-                          'assets/images/exercise.png', // Replace with your image path
+                          'assets/images/medi1.png', // Replace with your image path
                           height: 80,
                           width: 110,
                         ),
@@ -115,7 +115,7 @@ class MeditationScreen extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -124,7 +124,7 @@ class MeditationScreen extends StatelessWidget {
                       children: [
                         // 1st Column - Image
                         Image.asset(
-                          'assets/images/exercise.png', // Replace with your image path
+                          'assets/images/medi2.png', // Replace with your image path
                           height: 80,
                           width: 110,
                         ),
@@ -170,7 +170,7 @@ class MeditationScreen extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -179,7 +179,7 @@ class MeditationScreen extends StatelessWidget {
                       children: [
                         // 1st Column - Image
                         Image.asset(
-                          'assets/images/exercise.png', // Replace with your image path
+                          'assets/images/medi3.png', // Replace with your image path
                           height: 80,
                           width: 110,
                         ),
@@ -189,7 +189,7 @@ class MeditationScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Guided Relaxation for \nDepression & Stress',
+                              'Guided Relaxation\nfor Stress',
                               style: TextStyle(
                                 fontSize: 21,
                                 fontWeight: FontWeight.bold,
@@ -225,7 +225,7 @@ class MeditationScreen extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -234,7 +234,7 @@ class MeditationScreen extends StatelessWidget {
                       children: [
                         // 1st Column - Image
                         Image.asset(
-                          'assets/images/exercise.png', // Replace with your image path
+                          'assets/images/medi4.png', // Replace with your image path
                           height: 80,
                           width: 110,
                         ),
