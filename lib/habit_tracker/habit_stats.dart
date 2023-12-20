@@ -9,95 +9,67 @@ class CompletedHabitsPage extends StatelessWidget {
   const CompletedHabitsPage({
     Key? key,
     required this.dates,
-    required this.completedHabitsMap, required DateTime selectedDate, required List<Habit> completedHabits,
+    required this.completedHabitsMap, required DateTime selectedDate, required List completedHabits,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF97DEFF),
+        backgroundColor: const Color(0xFFD8B4F8),
         title: const Text(
           'Completed Habits',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 22),
         ),
       ),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/home_image.jpg',
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/home_image.jpg'),
+            fit: BoxFit.cover,
           ),
-          Container(
-            margin: const EdgeInsets.only(top: kToolbarHeight),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-              ),
-              itemCount: dates.length,
-              itemBuilder: (context, dateIndex) {
-                final date = dates[dateIndex];
-                final completedHabits = completedHabitsMap[date];
-
-                return Card(
-                  color: const Color(0xFF97DEFF),
-                  child: ListTile(
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          DateFormat.E().format(date),
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+        ),
+        child: completedHabitsMap.isEmpty || dates.isEmpty
+            ? const Center(
+                child: Text('No completed habits found.'),
+              )
+            : ListView.builder(
+                itemCount: dates.length,
+                itemBuilder: (context, index) {
+                  final date = dates[index];
+                  final completedHabits = completedHabitsMap[date];
+                  return Card(
+                    child: ListTile(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            DateFormat.yMMMd().format(date),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text(
-                          DateFormat.yMd().format(date),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 8.0),
-                        if (completedHabits != null && completedHabits.isNotEmpty)
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: completedHabits
+                            children: completedHabits!
                                 .map(
                                   (habit) => Text(
-                                    habit.name,
+                                    habit.name, // Display habit name
                                     style: const TextStyle(
                                       fontSize: 16,
-                                      color: Colors.black,
                                     ),
                                   ),
                                 )
-                                .toList(),
-                          )
-                        else
-                          const Text(
-                            'No completed habits for this date.',
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
+                              .toList(),
                           ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+                  );
+                },
+              ),
       ),
     );
   }

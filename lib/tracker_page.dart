@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health/Goals/creategoal.dart';
 import 'package:mental_health/habit_tracker/habit_tracker.dart';
-import 'package:mental_health/mood_tracker.dart';
-import 'package:mental_health/social_tracker.dart';
+import 'package:mental_health/mood_tracker/mood_tracker.dart';
+//import 'package:mental_health/social_tracker.dart';
 
 class TrackersPage extends StatelessWidget {
   const TrackersPage({Key? key}) : super(key: key);
@@ -110,22 +110,22 @@ class TrackersPage extends StatelessWidget {
                   TrackerColumn(
                     imagePath: 'assets/images/moodtracker1.png',
                     trackerName: 'Mood Tracker',
-                    height: 140,
-                    width: 180,
-                    imagePadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                    height: 135,
+                    width: 160,
+                    imagePadding: const EdgeInsets.only(left: 15, right:30),
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const MoodTrackerPage()),
+                        MaterialPageRoute(builder: (context) => const MoodTrackerPage(moodData: {},)),
                       );
                     },
                   ),
                   TrackerColumn(
                     imagePath: 'assets/images/habitracker1.png',
                     trackerName: 'Habit Tracker',
-                    height: 140,
-                    width: 180,
-                    imagePadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0.01),
+                    height: 135,
+                    width: 160,
+                    imagePadding: const EdgeInsets.only(left: 10, right: 15),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -135,7 +135,7 @@ class TrackersPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Center(
+              /*Center(
                 child: TrackerColumn(
                   imagePath: 'assets/images/socialMtracker1.png',
                   trackerName: 'Social Media Apps Tracker',
@@ -149,7 +149,7 @@ class TrackersPage extends StatelessWidget {
                     );
                   },
                 ),
-              ),
+              ),*/
             ],
           ),
         ],
@@ -191,13 +191,13 @@ class TrackerColumn extends StatelessWidget {
             backgroundColor: const Color(0xFFAA77FF),
             minimumSize: const Size(20, 40),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(8),
               side: const BorderSide(color: Color(0xFF97DEFF), width: 2),
             ),
           ),
           child: Text(
             trackerName,
-            style: const TextStyle(fontSize: 16, color: Colors.white),
+            style: const TextStyle(fontSize: 17, color: Colors.white),
           ),
         ),
         const SizedBox(height: 8),

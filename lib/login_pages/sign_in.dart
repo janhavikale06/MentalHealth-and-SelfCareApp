@@ -23,11 +23,11 @@ class SignIn extends StatelessWidget {
         elevation: 0,
         title: const Text(
           "Sign In",
-          style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 28, top: 50, right: 28), // Adjust left and top values as needed
+        padding: const EdgeInsets.only(left: 30, top: 70, right: 30), // Adjust left and top values as needed
         child: Column(
           children: <Widget>[
             Container(
@@ -56,7 +56,7 @@ class SignIn extends StatelessWidget {
               _passwordTextController,
               errorText: _passwordError,
             ),
-            const SizedBox(height: 35),
+            const SizedBox(height: 25),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -66,7 +66,7 @@ class SignIn extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFAA77FF),
-                minimumSize: const Size(90, 40), // Adjust the size as needed
+                minimumSize: const Size(70, 40), // Adjust the size as needed
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7),
                   side: const BorderSide(color: Color(0xFFAA77FF), width: 2),

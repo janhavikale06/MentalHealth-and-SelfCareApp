@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mental_health/profile_page.dart';
+import 'package:mental_health/profile/profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SurveyPage extends StatefulWidget {
@@ -74,6 +74,7 @@ class _SurveyPageState extends State<SurveyPage> {
     'Doing something artistic',
     'Scroll through social media',
     'Simply doing nothing',
+    'Take a nap',
   ];
 
   List<String> spareTimeOptions = [
@@ -81,7 +82,8 @@ class _SurveyPageState extends State<SurveyPage> {
     'Do yoga or meditation',
     'Paint or draw',
     'Write a journal',
-    'Watch movies',
+    'Play some sport',
+    'Reading a book or Watch movies',
     'Explore the outdoors',
     'Take a nap',
   ];
@@ -115,7 +117,7 @@ class _SurveyPageState extends State<SurveyPage> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 17, top: 27, right: 17),
+        padding: const EdgeInsets.only(left: 17, top: 16, right: 17),
         child: Form(
           key: _formKey,
           child: Column(
@@ -129,7 +131,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   selfCareAttitude = value;
                 },
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 16),
               _buildQuestionAndAnswer(
                 question: 'Do you like making new friends?',
                 options: newFriendsOptions,
@@ -137,7 +139,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   newPeoplePreference = value;
                 },
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 16),
               _buildQuestionAndAnswer(
                 question: 'What do you like to do in your spare time?',
                 options: spareTimeOptions,
@@ -145,7 +147,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   spareTimeActivity = value;
                 },
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 16),
               _buildQuestionAndAnswer(
                 question: 'How would you describe your typical schedule?',
                 options: scheduleOptions,
@@ -153,7 +155,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   typicalSchedule = value;
                 },
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 16),
               _buildQuestionAndAnswer(
                 question: 'How do you handle large social gatherings?',
                 options: socialGatheringOptions,
@@ -161,7 +163,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   socialGatheringPreference = value;
                 },
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 16),
               _buildQuestionAndAnswer(
                 question: 'What do you usually do when you\'re stressed?',
                 options: relaxOptions,
@@ -170,7 +172,7 @@ class _SurveyPageState extends State<SurveyPage> {
                 },
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
 
               Align(
                 alignment: Alignment.center,
@@ -198,6 +200,7 @@ class _SurveyPageState extends State<SurveyPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

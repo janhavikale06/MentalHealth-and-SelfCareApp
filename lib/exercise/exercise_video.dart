@@ -12,7 +12,7 @@ class ExerciseVideoScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF97DEFF),
+        backgroundColor: const Color(0xFFD8B4F8),
         title: const Text(
           'Video Sessions',
           style: TextStyle(color: Colors.white, fontSize: 22),
@@ -77,7 +77,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF97DEFF),
+        backgroundColor: const Color(0xFFD8B4F8),
         title: const Text(
           'Video Sessions',
           style: TextStyle(color: Colors.white, fontSize: 22),

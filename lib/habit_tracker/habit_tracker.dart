@@ -83,6 +83,18 @@ class _HabitTrackerPageState extends State<HabitTrackerPage> {
     prefs.setStringList('habitsData', habitsJson);
   }
 
+  // Navigating to CompletedHabitsPage
+  void navigateToCompletedHabitsPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CompletedHabitsPage(
+          selectedDate: _selectedDateAppBBar, completedHabits: const [], dates: const [], completedHabitsMap: const {},
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     int completedCounter = getCounter();
@@ -99,13 +111,16 @@ class _HabitTrackerPageState extends State<HabitTrackerPage> {
         ),
       ),
       body: Container(
+        // Adjust the decoration and child dimensions to cover the entire screen
+        height: MediaQuery.of(context).size.height, // Set the height to the screen's height
+        width: double.infinity, // Take up the full width
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/home_image.jpg'),
             fit: BoxFit.cover,
           ),
         ),
-        child: SingleChildScrollView(
+      child: SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(height: 20),
@@ -153,7 +168,7 @@ class _HabitTrackerPageState extends State<HabitTrackerPage> {
               ),
               const SizedBox(height: 16),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Container(
                   padding: const EdgeInsets.all(5),
                   width: MediaQuery.of(context).size.width,
@@ -271,6 +286,7 @@ class _HabitTrackerPageState extends State<HabitTrackerPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 40),
             ],
           ),
         ),
