@@ -56,7 +56,7 @@ class _SleepMonitoringPageState extends State<SleepMonitoringPage> {
                 ),
                 Container(
                   height: 175,
-                  width: 380,
+                  width: 348,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10.0),
@@ -128,7 +128,7 @@ class _SleepMonitoringPageState extends State<SleepMonitoringPage> {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: const Color(0xFFAA77FF),
                                       elevation: 0,
-                                      fixedSize: const Size(150, 40), // Set desired width and height
+                                      fixedSize: const Size(150, 30), // Set desired width and height
                                     ),
                                     child: const Text(
                                       'Start Tracking',
@@ -171,8 +171,8 @@ class _SleepMonitoringPageState extends State<SleepMonitoringPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      height: 150,
-                      width: 170,
+                      height: 140,
+                      width: 160,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 181, 232, 255),
                         borderRadius: BorderRadius.circular(10.0),
@@ -228,10 +228,10 @@ class _SleepMonitoringPageState extends State<SleepMonitoringPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 25),
+                    const SizedBox(width: 15),
                     Container(
-                      height: 150,
-                      width: 170,
+                      height: 140,
+                      width: 160,
                       decoration: BoxDecoration(
                         color: const Color(0xFFD0BFFF),
                         borderRadius: BorderRadius.circular(10.0),

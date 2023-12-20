@@ -15,7 +15,9 @@ class KnowMorePage extends StatefulWidget {
 class _KnowMorePageState extends State<KnowMorePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _profileNameController = TextEditingController();
+   final TextEditingController _fullnameController = TextEditingController();
 
+  String? fullname;
   String? username;
   String? age;
   String? selectedGender;
@@ -36,7 +38,8 @@ class _KnowMorePageState extends State<KnowMorePage> {
   void _collectUserData() {
     // Collect user data and create a UserProfile object
     UserProfile userProfile = UserProfile(
-      name: username!,
+      fullname: _fullnameController.text,
+      name: _profileNameController.text,
       age: age!,
       gender: selectedGender!,
       location: location!,
@@ -100,9 +103,37 @@ class _KnowMorePageState extends State<KnowMorePage> {
               ),
               const SizedBox(height: 28),
               TextFormField(
+                controller: _fullnameController,
+                onChanged: (value) {
+                  fullname = value;
+                },
+                decoration: InputDecoration(
+                  labelText: 'Full Name',
+                  fillColor: const Color(0xFFD8B4F8),
+                  filled: true,
+                  hintStyle: const TextStyle(color: Color(0xFFAA77FF)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Color(0xFFAA77FF)),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.white),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Full name is required';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 21),
+              TextFormField(
                 controller: _profileNameController,
                 onChanged: (value) {
-                  username = value;
+                  fullname = value;
                 },
                 decoration: InputDecoration(
                   labelText: 'Username',
@@ -339,6 +370,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -348,6 +380,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
 }
 
 class UserProfile {
+  final String fullname;
   final String name;
   final String age;
   final String gender;
@@ -358,6 +391,7 @@ class UserProfile {
   final String profilePhotoUrl;
 
   UserProfile({
+    required this.fullname,
     required this.name,
     required this.age,
     required this.gender,

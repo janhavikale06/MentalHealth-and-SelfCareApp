@@ -1,10 +1,11 @@
 // ignore_for_file: unnecessary_string_interpolations, camel_case_types, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:mental_health/survey/know_more_page.dart';
-import 'package:mental_health/profile_page.dart';
+import 'package:mental_health/profile/profile_page.dart';
 import 'package:mental_health/tracker_page.dart';
 import 'package:mental_health/selfcare_page.dart';
 import 'package:mental_health/mentalhealth_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class homePage extends StatefulWidget {
   const homePage({Key? key}) : super(key: key);
@@ -14,38 +15,73 @@ class homePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<homePage> {
+   String userName = 'User';
+
+  @override
+  void initState() {
+    super.initState();
+    getFullName();
+  }
+
+  Future<void> getFullName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? fullName = prefs.getString('fullName');
+    if (fullName != null) {
+      setState(() {
+        userName = fullName;
+      });
+    }
+  }
+  
   int _currentIndex = 0;
-  RangeValues _moodRange = const RangeValues(0, 100); // Initial mood range values
+ // RangeValues _moodRange = const RangeValues(0, 100); // Initial mood range values
 
   Widget buildHomePage() {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 65, top: 26),
-            child: Container(
-              width: 280,
-              height: 260,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/home_page1.png'),
-                  fit: BoxFit.cover,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 26),
+              child: Container(
+                width: 280,
+                height: 260,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/home_page1.png'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 18, top: 20),
-            child: Text(
-              'Hello, Janhavi!',
-              style: TextStyle(
-                fontSize: 40,
-                color: Color(0xFFAA77FF),
-                fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.only(left: 16, top: 20),
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  const TextSpan(
+                    text: 'Hello, ',
+                    style: TextStyle(
+                      fontSize: 38,
+                      color: Color(0xFFAA77FF),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '$userName !',
+                    style: const TextStyle(
+                      fontSize: 38,
+                      color: Color(0xFFAA77FF),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
+
           const Padding(
             padding: EdgeInsets.only(left: 18, top: 4),
             child: Text(
@@ -57,8 +93,9 @@ class _HomePageState extends State<homePage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 100, top: 50),
+          /*
+          const SizedBox(height: 50),
+          Center(
             child: Container(
               width: 200,
               height: 90,
@@ -70,27 +107,33 @@ class _HomePageState extends State<homePage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 90, top: 1, right: 100),
-            child: RangeSlider(
-              values: _moodRange,
-              onChanged: (RangeValues values) {
-                setState(() {
-                  _moodRange = values;
-                });
-              },
-              min: 0,
-              max: 100,
-              divisions: 100,
-              labels: RangeLabels(
-                '${_moodRange.start.toStringAsFixed(0)}',
-                '${_moodRange.end.toStringAsFixed(0)}',
+          
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 88, right: 85),
+              child: RangeSlider(
+                values: _moodRange,
+                onChanged: (RangeValues values) {
+                  setState(() {
+                    _moodRange = values;
+                  });
+                },
+                min: 0,
+                max: 100,
+                divisions: 100,
+                labels: RangeLabels(
+                  '${_moodRange.start.toStringAsFixed(0)}',
+                  '${_moodRange.end.toStringAsFixed(0)}',
+                ),
+                activeColor: const Color(0xFFAA77FF),
               ),
-              activeColor: const Color(0xFFAA77FF),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 48, top: 60),
+          */
+          const SizedBox(height: 50),
+          Center(
+            child: Padding(
+            padding: const EdgeInsets.only(top: 60),
             child: Column(
               children: [
                 const Text(
@@ -121,6 +164,9 @@ class _HomePageState extends State<homePage> {
               ],
             ),
           )
+
+          ),
+          
         ],
       ),
     );

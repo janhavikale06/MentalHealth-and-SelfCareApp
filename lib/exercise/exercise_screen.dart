@@ -198,7 +198,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '25 Minutes Full \nBody Yoga Exercises',
+                              '25 Minutes Yoga\nExercises',
                               style: TextStyle(
                                 fontSize: 21,
                                 fontWeight: FontWeight.bold,

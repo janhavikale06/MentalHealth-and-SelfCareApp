@@ -104,7 +104,7 @@ class _StartTrackingButtonState extends State<StartTrackingButton> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF97DEFF),
+        backgroundColor: const Color(0xFFD8B4F8),
         title: const Text(
           'Start Tracking',
           style: TextStyle(

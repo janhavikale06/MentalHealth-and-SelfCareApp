@@ -1,8 +1,8 @@
-// ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors
-
+// ignore_for_file: library_private_types_in_public_api, unused_element, iterable_contains_unrelated_type, list_remove_unrelated_type, avoid_print, use_key_in_widget_constructors
 import 'package:flutter/material.dart';
-//import 'package:mental_health/pains_gains.dart';
+import 'package:intl/intl.dart';
 import 'package:mental_health/sleep_monitoring/sleep_monitoring.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelfCarePage extends StatefulWidget {
   const SelfCarePage({Key? key}) : super(key: key);
@@ -12,7 +12,10 @@ class SelfCarePage extends StatefulWidget {
 }
 
 class _SelfCarePageState extends State<SelfCarePage> {
+  late SharedPreferences _prefs;
+  late String _todayKey;
   List<String> selectedOptions = [];
+  List<String> selectedOptionNames = [];
 
   // Define the available options with associated icons
   final List<Map<String, dynamic>> options = [
@@ -21,6 +24,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
     {'name': 'Date', 'icon': Icons.favorite},
     {'name': 'Exercise', 'icon': Icons.fitness_center},
     {'name': 'Movies', 'icon': Icons.tv},
+    {'name': 'Work', 'icon': Icons.laptop},
     {'name': 'Pet', 'icon': Icons.pets},
     {'name': 'Gaming', 'icon': Icons.sports_esports},
     {'name': 'Reading', 'icon': Icons.book},
@@ -32,12 +36,46 @@ class _SelfCarePageState extends State<SelfCarePage> {
 
   final TextEditingController _newOptionController = TextEditingController();
 
+
   @override
-  void dispose() {
-    _newOptionController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    _initSharedPreferences();
+    _loadSelectedOptions();
   }
 
+  Future<void> _loadSelectedOptions() async {
+    final DateTime now = DateTime.now();
+    _todayKey = DateFormat('yyyy-MM-dd').format(now);
+    _prefs = await SharedPreferences.getInstance();
+
+    if (_prefs.containsKey('selectedOptionsDate')) {
+      final DateTime selectedOptionsDate =
+          DateTime.parse(_prefs.getString('selectedOptionsDate')!);
+
+      if (now.difference(selectedOptionsDate).inDays == 0) {
+        List<String>? optionNames =
+            _prefs.getStringList('$_todayKey:selectedOptionNames');
+        if (optionNames != null) {
+          setState(() {
+            selectedOptions = optionNames;
+          });
+        }
+        print('Selected options loaded: $selectedOptions');
+      }
+    }
+  }
+
+  Future<void> _saveSelectedOptions() async {
+    await _prefs.setStringList('$_todayKey:selectedOptionNames', selectedOptions);
+    await _prefs.setString('selectedOptionsDate', _todayKey);
+  }
+
+  Future<void> _initSharedPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+    _todayKey = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  }
+  
   Future<void> _showAddOptionDialog() async {
     return showDialog(
       context: context,
@@ -73,10 +111,15 @@ class _SelfCarePageState extends State<SelfCarePage> {
               onPressed: () {
                 final String newOption = _newOptionController.text;
                 if (newOption.isNotEmpty) {
-                  options.add({'name': newOption, 'icon': Icons.star});
+                  setState(() {
+                    options.add({'name': newOption, 'icon': Icons.star});
+                    selectedOptions.add(newOption); // Update selectedOptions list with the new option
+                  });
                   _newOptionController.clear();
                   Navigator.of(context).pop();
-                  setState(() {});
+                  _saveSelectedOptions().then((_) {
+                    setState(() {}); // Trigger a rebuild after saving selected options
+                  });
                 }
               },
               style: TextButton.styleFrom(
@@ -100,19 +143,19 @@ class _SelfCarePageState extends State<SelfCarePage> {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.only(top: 75),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 40.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 const Text(
                   'What have you been up to?',
                   style: TextStyle(
-                    fontSize: 31,
-                    color: Color(0xFFAA77FF),
+                    fontSize: 30,
+                    color: Color.fromRGBO(170, 119, 255, 1),
                     shadows: [
                       Shadow(
-                        color: Colors.white, 
-                        offset: Offset(-1, -1), 
+                        color: Color(0xFF97DEFF),
+                        offset: Offset(-1, -1),
                         blurRadius: 5,
                       ),
                       Shadow(
@@ -125,10 +168,10 @@ class _SelfCarePageState extends State<SelfCarePage> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 15.0),
                 Wrap(
-                  spacing: 22.0,
-                  runSpacing: 13.0,
+                  spacing: 18.0,
+                  runSpacing: 16.0,
                   children: options.map((option) {
                     final IconData icon = option['icon'];
                     final String optionName = option['name'];
@@ -142,15 +185,16 @@ class _SelfCarePageState extends State<SelfCarePage> {
                               } else {
                                 selectedOptions.add(optionName);
                               }
+                              _saveSelectedOptions(); // Add this line to save selected options
                             });
                           },
                           child: Container(
-                            width: 55.0,
-                            height: 55.0,
+                            width: 50.0,
+                            height: 50.0,
                             decoration: BoxDecoration(
                               color: selectedOptions.contains(optionName)
-                                  ? const Color(0xFFD8B4F8)
-                                  : const Color(0xFF97DEFF),
+                              ? const Color(0xFFD8B4F8)
+                              : const Color(0xFF97DEFF),
                               shape: BoxShape.circle,
                               border: Border.all(
                                 color: const Color(0xFFD8B4F8),
@@ -174,39 +218,154 @@ class _SelfCarePageState extends State<SelfCarePage> {
                       ],
                     );
                   }).toList(),
-                ),
-                const SizedBox(height: 20.0),
-                InkWell(
-                  onTap: () {
-                    _showAddOptionDialog();
-                  },
-                  child: Container(
-                    width: 55.0,
-                    height: 55.0,
-                    decoration:  BoxDecoration(
-                      color: const Color(0xFF97DEFF),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: const Color(0xFFD8B4F8),
-                        width: 1.0,
+                ),                
+                const SizedBox(height: 30.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(padding: const EdgeInsets.only(left: 90.0, right:0),
+
+                    child: Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          _showAddOptionDialog();
+                        },
+                          child: Container(
+                            width: 53.0,
+                            height: 53.0,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 177, 135, 246),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFF97DEFF),
+                                width: 1.5,
+                              ),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          // Save the selected options somewhere or perform an action
+                          // Format the current date
+                          String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+                          // Display the selected options along with date
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Selected options: ${selectedOptions.join(', ')} on $formattedDate',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: const Color(0xFF97DEFF),
+                            ),
+                          );
+                        },
+                        
+                          child: Container(
+                            width: 53.0,
+                            height: 53.0,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 177, 135, 246),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFF97DEFF),
+                                width: 1.5,
+                              ),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                       ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 35.0),
+                if (selectedOptions.isNotEmpty)
+                  // Add a Container around the selected options
+                  Container(
+                    padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 195, 236, 255),
+                      border: Border.all(color: const Color(0xFF97DEFF), width: 2),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Selected Options',
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Color(0xFFAA77FF),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 7),
+                        Text(
+                          'Date: $_todayKey', // Show the current date
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFFAA77FF),
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Wrap(
+                          spacing: 10.0,
+                          runSpacing: 5.0,
+                          children: selectedOptions
+                              .map((option) => Chip(
+                                    label: Text(option),
+                                    backgroundColor: const Color(0xFFD8B4F8),
+                                    labelStyle: const TextStyle(color: Colors.white),
+                                  ))
+                              .toList(),
+                        ),
+                        const SizedBox(height: 20.0),
+                      ],
                     ),
                   ),
+                   
+                const SizedBox(height: 35.0),
+                const Text('Sleep Monitoring Tracker',
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: Color.fromRGBO(170, 119, 255, 1),
+                    shadows: [
+                      Shadow(
+                        color: Color(0xFF97DEFF),
+                        offset: Offset(-1, -1),
+                        blurRadius: 5,
+                      ),
+                      Shadow(
+                        color: Colors.white,
+                        offset: Offset(1, 1),
+                        blurRadius: 5,
+                      ),
+                    ],
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 70.0),
+                const SizedBox(height: 28.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TrackerColumn(
                       imagePath: 'assets/images/sleeptracker.png',
-                      height: 123,
-                      width: 253,
+                      height: 100,
+                      width: 210,
                       imagePadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.01),
                       onPressed: () {
                         Navigator.push(
@@ -218,7 +377,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
                     ),
                   ],
                 ),
-                const SizedBox(height:6),
+                const SizedBox(height: 6),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -234,12 +393,12 @@ class _SelfCarePageState extends State<SelfCarePage> {
                         backgroundColor: const Color(0xFFAA77FF),
                         minimumSize: const Size(20, 40),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(8),
                           side: const BorderSide(color: Color(0xFF97DEFF), width: 2),
                         ),
                       ),
                       child: const Text(
-                        'Sleep Monitoring' ,
+                        'Sleep Monitoring',
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     )
@@ -253,6 +412,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
     );
   }
 }
+
 
 class TrackerColumn extends StatelessWidget {
   final String imagePath;

@@ -106,7 +106,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
                 ),
                 const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextField(
                     controller: _textEditingController,
                     maxLines: null,
@@ -152,8 +152,8 @@ class _JournalingScreenState extends State<JournalingScreen> {
                 ),
                 const SizedBox(height: 30), // Spacing
                 Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: const EdgeInsets.all(15),
+                  margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   decoration: BoxDecoration(
                     color: const Color(0xFF97DEFF),
                     borderRadius: BorderRadius.circular(10),
