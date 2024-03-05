@@ -20,11 +20,17 @@
 ![CompetitiveAnalyis](https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/cedc0951-8b7a-4f4a-bf46-d3e7bc540647)
 
 **User Flowchart:**
-<img width="2854" alt="FigmaApp" src="https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/14a3e771-b6c7-46e2-a3dd-e4076b093cda">
-
 <img width="2244" alt="github1" src="https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/536d1ef6-ac6f-4337-8b8d-e9d0fe4b73e2">
 
+
 <img width="3597" alt="github2" src="https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/b3fc1ea1-fcbb-42be-83dc-df5f8378aa41">
+
+
+**Figma Prototype Design:**
+<img width="2854" alt="FigmaApp" src="https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/14a3e771-b6c7-46e2-a3dd-e4076b093cda">
+
+**Designed App pages:**
+<img width="3291" alt="github3" src="https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/b600775d-307c-4d9e-ba61-aef5a35361fa">
 
 **Results:** The UpLiftU app ended up being about 105.4 MB in size. It includes lots of helpful features like tools for managing mental health, tracking moods, forming habits, and connecting with others for support. Users have told us that using the app has helped them feel less stressed, happier, and more productive. They particularly like features like habit tracking, writing, art therapy, music, meditation, mood tracking, fitness content, and journaling. The profile page, which shows data like habit tracking and mood graphs, has been especially useful for users to track their progress and understand how their mental health is changing over time. Overall, the feedback has been positive, and we're glad that the app is helping people improve their emotional well-being in an easy and friendly way.
 
