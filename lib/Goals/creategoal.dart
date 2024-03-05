@@ -1,11 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mental_health/Goals/badhabits.dart';
-import 'package:mental_health/Goals/getfit.dart';
-import 'package:mental_health/Goals/livehealthier.dart';
-import 'package:mental_health/Goals/reducestress.dart';
-import 'package:mental_health/Goals/selfgrowth.dart';
+import 'package:upliftu/Goals/badhabits.dart';
+import 'package:upliftu/Goals/getfit.dart';
+import 'package:upliftu/Goals/livehealthier.dart';
+import 'package:upliftu/Goals/reducestress.dart';
+import 'package:upliftu/Goals/selfgrowth.dart';
 
 class CreateGoal extends StatefulWidget {
   const CreateGoal({Key? key}) : super(key: key);

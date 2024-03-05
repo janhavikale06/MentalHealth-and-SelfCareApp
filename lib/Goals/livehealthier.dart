@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mental_health/Goals/start_goal.dart';
+import 'package:upliftu/Goals/start_goal.dart';
 
 class LiveHealthier extends StatefulWidget {
   const LiveHealthier({Key? key}) : super(key: key);
@@ -143,7 +143,7 @@ class _LiveHealthierState extends State<LiveHealthier> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 150),
                     ],
                   ),
                 ],

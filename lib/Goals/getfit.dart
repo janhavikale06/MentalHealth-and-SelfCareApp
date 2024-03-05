@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mental_health/Goals/start_goal.dart';
+import 'package:upliftu/Goals/start_goal.dart';
 
 class GetFit extends StatefulWidget {
   const GetFit({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class GetFit extends StatefulWidget {
 }
 
 class _GetFitState extends State<GetFit> {
-  final StartGoal _startGoal = const StartGoal();
+  final StartGoal _startGoal =  const StartGoal();
   int counter = 0;
 
   @override
@@ -148,7 +148,7 @@ class _GetFitState extends State<GetFit> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 150),
                           ],
                         ),
                       ),

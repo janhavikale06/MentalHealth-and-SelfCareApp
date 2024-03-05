@@ -91,55 +91,30 @@ class _OpenSharedCircleState extends State<OpenSharedCircle> {
               Stack(
                 children: [
                   SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
+                    scrollDirection: Axis.vertical, //scroll direction vertical
+                    child: Column(
                       children: [
                         _buildVideoContainer(
                           'How to manage stress',
-                          'Clinging to our issues will make us suffer\nmore. A professor gives pupils important\nlife lessonsin this inspirational tale about\nstress management. \n',
+                          'Clinging to our issues will make us suffer more. A professor gives pupils important\nlife lessonsin this inspirational tale about\nstress management. \n',
                           'X3wi1I_2cR4',
                         ),
                         _buildVideoContainer(
-                          'Overcomer Animated Short',
-                          'Even through the darkest times, these films\npositively impact anxiety, stress,\nand depression.',
+                          'Overcomer Animated Short Film',
+                          'Even through the darkest times, these films\npositively impact anxiety, stress and depression. \n',
                           'V6ui161NyTg',
                         ),
                         _buildVideoContainer(
-                          'The Secret To unlocking\nyour potential',
-                          'Motivational Speech To Improve Your Productivity.',
+                          'Unlock your potential',
+                          'Being productive promotes accomplishment, self-worth and continuous personal growth, all of which are critical for mental health and development. \n',
                           'IU-e5P3F_uY',
                         ),
                       ],
                     ),
                   ),
-                  Positioned(
-                    left: 3,
-                    top: 130,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_left),
-                      onPressed: () {
-                        _pageController.previousPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    right: 5,
-                    top: 130,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_right),
-                      onPressed: () {
-                        _pageController.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                    ),
-                  ),
                 ],
               ),
+                       
               const SizedBox(height: 40),
             ],
           ),
@@ -154,7 +129,7 @@ class _OpenSharedCircleState extends State<OpenSharedCircle> {
     String youtubeVideoId,
   ) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(6),
@@ -188,7 +163,7 @@ class _OpenSharedCircleState extends State<OpenSharedCircle> {
           const SizedBox(height: 15),
           Text(
             title,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFFAA77FF)),
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFFAA77FF)),
           ),
           const SizedBox(height: 10),
           Padding(

@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mental_health/Goals/start_goal.dart';
+import 'package:upliftu/Goals/start_goal.dart';
 
 class selfGrowth extends StatefulWidget {
   const selfGrowth({Key? key}) : super(key: key);
@@ -142,7 +142,7 @@ class _SelfGrowthState extends State<selfGrowth> {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 150),
                       ],
                     ),
                   ),

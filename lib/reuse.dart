@@ -8,14 +8,18 @@ Image logoWidget(String imageName) {
     height: 240,
   );
 }
-
-TextField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller, {String? errorText}) {
+TextField reusableTextField(
+  String labelText,
+  IconData icon,
+  bool isPassword,
+  TextEditingController controller,
+  {String? errorText,
+  }) {
   return TextField(
     controller: controller,
-    obscureText: isPasswordType,
-    enableSuggestions: !isPasswordType,
-    autocorrect: !isPasswordType,
+    obscureText: isPassword,
+    enableSuggestions: !isPassword,
+    autocorrect: !isPassword,
     cursorColor: Colors.white,
     style: TextStyle(color: Colors.white.withOpacity(0.9)),
     decoration: InputDecoration(
@@ -23,20 +27,23 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
         icon,
         color: Colors.black,
       ),
-      labelText: text,
+      labelText: labelText,
       labelStyle: TextStyle(color: Colors.white.withOpacity(0.9)),
       filled: true,
       floatingLabelBehavior: FloatingLabelBehavior.never,
       fillColor: Colors.black12.withOpacity(0.3),
       border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0),
-          borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
+        borderRadius: BorderRadius.circular(30.0),
+        borderSide: const BorderSide(width: 0, style: BorderStyle.none),
+      ),
+      errorText: errorText,
     ),
-    keyboardType: isPasswordType
+    keyboardType: isPassword
         ? TextInputType.visiblePassword
         : TextInputType.emailAddress,
   );
 }
+
 
 Container firebaseUIButton(BuildContext context, String title, Function onTap) {
   return Container(
@@ -49,18 +56,23 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
         onTap();
       },
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.pressed)) {
-              return Colors.black26;
-            }
-            return Colors.white;
-          }),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
+        backgroundColor: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.pressed)) {
+            return Colors.black26;
+          }
+          return Colors.white;
+        }),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        ),
+      ),
       child: Text(
         title,
         style: const TextStyle(
-            color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
+          color: Colors.black87,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
       ),
     ),
   );

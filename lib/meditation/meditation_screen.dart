@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mental_health/exercise/exercise_video.dart';
+import 'package:upliftu/exercise/exercise_video.dart';
 
 class MeditationScreen extends StatelessWidget {
   const MeditationScreen({Key? key}) : super(key: key);

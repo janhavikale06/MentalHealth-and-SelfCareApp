@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mental_health/profile/profile_page.dart';
+import 'package:upliftu/profile/profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SurveyPage extends StatefulWidget {
@@ -110,20 +110,19 @@ class _SurveyPageState extends State<SurveyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 135, 213, 249),
+        backgroundColor: const Color(0xFFD8B4F8),
         title: const Text(
           'Survey Questionnaire',
-          style: TextStyle(color: Colors.white, fontSize: 25),
+          style: TextStyle(color: Colors.white, fontSize: 22),
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 17, top: 16, right: 17),
+        padding: const EdgeInsets.only(left: 17, top: 20, right: 17),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 35),
               _buildQuestionAndAnswer(
                 question: 'Which word best describes you?',
                 options: personalityOptions,
@@ -187,16 +186,16 @@ class _SurveyPageState extends State<SurveyPage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF97DEFF),
-                    minimumSize: const Size(100, 45),
+                    backgroundColor: const Color(0xFFAA77FF),
+                    minimumSize: const Size(70, 40),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(7),
+                      side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
                     ),
-                    side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
                   ),
                   child: const Text(
                     'Submit',
-                    style: TextStyle(fontSize: 25, color: Color(0xFFAA77FF)),
+                    style: TextStyle(fontSize: 21, color: Colors.white),
                   ),
                 ),
               ),
@@ -205,6 +204,7 @@ class _SurveyPageState extends State<SurveyPage> {
           ),
         ),
       ),
+      backgroundColor: const Color.fromARGB(255, 195, 236, 255),
     );
   }
 
@@ -222,7 +222,7 @@ class _SurveyPageState extends State<SurveyPage> {
           question,
           style: const TextStyle(
             color: Color(0xFFAA77FF),
-            fontSize: 18,
+            fontSize: 19,
           ),
         ),
         const SizedBox(height: 7),

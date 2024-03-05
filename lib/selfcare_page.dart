@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, unused_element, iterable_contains_unrelated_type, list_remove_unrelated_type, avoid_print, use_key_in_widget_constructors
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mental_health/sleep_monitoring/sleep_monitoring.dart';
+import 'package:upliftu/sleep_monitoring/sleep_monitoring.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelfCarePage extends StatefulWidget {
@@ -17,7 +17,6 @@ class _SelfCarePageState extends State<SelfCarePage> {
   List<String> selectedOptions = [];
   List<String> selectedOptionNames = [];
 
-  // Define the available options with associated icons
   final List<Map<String, dynamic>> options = [
     {'name': 'Family', 'icon': Icons.family_restroom_outlined},
     {'name': 'Friends', 'icon': Icons.people_alt_outlined},
@@ -35,7 +34,6 @@ class _SelfCarePageState extends State<SelfCarePage> {
   ];
 
   final TextEditingController _newOptionController = TextEditingController();
-
 
   @override
   void initState() {
@@ -75,7 +73,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
     _prefs = await SharedPreferences.getInstance();
     _todayKey = DateFormat('yyyy-MM-dd').format(DateTime.now());
   }
-  
+
   Future<void> _showAddOptionDialog() async {
     return showDialog(
       context: context,
@@ -113,12 +111,12 @@ class _SelfCarePageState extends State<SelfCarePage> {
                 if (newOption.isNotEmpty) {
                   setState(() {
                     options.add({'name': newOption, 'icon': Icons.star});
-                    selectedOptions.add(newOption); // Update selectedOptions list with the new option
+                    selectedOptions.add(newOption);
                   });
                   _newOptionController.clear();
                   Navigator.of(context).pop();
                   _saveSelectedOptions().then((_) {
-                    setState(() {}); // Trigger a rebuild after saving selected options
+                    setState(() {});
                   });
                 }
               },
@@ -140,10 +138,22 @@ class _SelfCarePageState extends State<SelfCarePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
+      body: Stack(
+      children: [
+      Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/home_image.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 40.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 50.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -185,7 +195,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
                               } else {
                                 selectedOptions.add(optionName);
                               }
-                              _saveSelectedOptions(); // Add this line to save selected options
+                              _saveSelectedOptions();
                             });
                           },
                           child: Container(
@@ -193,8 +203,8 @@ class _SelfCarePageState extends State<SelfCarePage> {
                             height: 50.0,
                             decoration: BoxDecoration(
                               color: selectedOptions.contains(optionName)
-                              ? const Color(0xFFD8B4F8)
-                              : const Color(0xFF97DEFF),
+                                  ? const Color(0xFFD8B4F8)
+                                  : const Color(0xFF97DEFF),
                               shape: BoxShape.circle,
                               border: Border.all(
                                 color: const Color(0xFFD8B4F8),
@@ -218,47 +228,50 @@ class _SelfCarePageState extends State<SelfCarePage> {
                       ],
                     );
                   }).toList(),
-                ),                
-                const SizedBox(height: 30.0),
+                ),
+                const SizedBox(height: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(padding: const EdgeInsets.only(left: 90.0, right:0),
-
-                    child: Expanded(
+                    Container(
+                      width: 53.0,
+                      height: 53.0,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 177, 135, 246),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: const Color(0xFF97DEFF),
+                          width: 1.5,
+                        ),
+                      ),
                       child: InkWell(
                         onTap: () {
                           _showAddOptionDialog();
                         },
-                          child: Container(
-                            width: 53.0,
-                            height: 53.0,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 177, 135, 246),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xFF97DEFF),
-                                width: 1.5,
-                              ),
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                            ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
                           ),
                         ),
                       ),
                     ),
-                    Expanded(
+                    const SizedBox(width: 30),
+                    Container(
+                      width: 53.0,
+                      height: 53.0,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 177, 135, 246),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: const Color(0xFF97DEFF),
+                          width: 1.5,
+                        ),
+                      ),
                       child: InkWell(
                         onTap: () {
-                          // Save the selected options somewhere or perform an action
-                          // Format the current date
-                          String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-
-                          // Display the selected options along with date
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(DateTime.now());
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
@@ -269,32 +282,18 @@ class _SelfCarePageState extends State<SelfCarePage> {
                             ),
                           );
                         },
-                        
-                          child: Container(
-                            width: 53.0,
-                            height: 53.0,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 177, 135, 246),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xFF97DEFF),
-                                width: 1.5,
-                              ),
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.check,
-                                color: Colors.white,
-                              ),
-                            ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.white,
                           ),
+                        ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 35.0),
+                const SizedBox(height: 15.0),
                 if (selectedOptions.isNotEmpty)
-                  // Add a Container around the selected options
                   Container(
                     padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
                     decoration: BoxDecoration(
@@ -314,7 +313,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
                         ),
                         const SizedBox(height: 7),
                         Text(
-                          'Date: $_todayKey', // Show the current date
+                          'Date: $_todayKey',
                           style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xFFAA77FF),
@@ -336,9 +335,10 @@ class _SelfCarePageState extends State<SelfCarePage> {
                       ],
                     ),
                   ),
-                   
-                const SizedBox(height: 35.0),
-                const Text('Sleep Monitoring Tracker',
+
+                const SizedBox(height: 20.0),
+                const Text(
+                  'Sleep Monitoring Tracker',
                   style: TextStyle(
                     fontSize: 28,
                     color: Color.fromRGBO(170, 119, 255, 1),
@@ -358,7 +358,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 28.0),
+                const SizedBox(height: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -377,7 +377,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
+                //const SizedBox(height:0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -389,17 +389,16 @@ class _SelfCarePageState extends State<SelfCarePage> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        elevation: 0,
                         backgroundColor: const Color(0xFFAA77FF),
-                        minimumSize: const Size(20, 40),
+                        minimumSize: const Size(70, 36),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          side: const BorderSide(color: Color(0xFF97DEFF), width: 2),
+                          borderRadius: BorderRadius.circular(7),
+                          side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
                         ),
                       ),
                       child: const Text(
                         'Sleep Monitoring',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     )
                   ],
@@ -409,10 +408,11 @@ class _SelfCarePageState extends State<SelfCarePage> {
           ),
         ),
       ),
+      ],
+    ),
     );
   }
 }
-
 
 class TrackerColumn extends StatelessWidget {
   final String imagePath;

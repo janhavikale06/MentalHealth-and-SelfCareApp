@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:calendar_agenda/calendar_agenda.dart';
-import 'package:mental_health/habit_tracker/habit_stats.dart';
+//import 'package:upliftu/habit_tracker/habit_stats.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:upliftu/profile/profile_page.dart';
 
 class Habit {
   final String name;
@@ -85,15 +86,29 @@ class _HabitTrackerPageState extends State<HabitTrackerPage> {
 
   // Navigating to CompletedHabitsPage
   void navigateToCompletedHabitsPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CompletedHabitsPage(
-          selectedDate: _selectedDateAppBBar, completedHabits: const [], dates: const [], completedHabitsMap: const {},
-        ),
+  //List<Habit> completedHabits = habitsData[selectedDayIndex].where((habit) => habit.isChecked).toList();
+  
+  /*Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) =>  CompletedHabitsPage(
+        selectedDate: _selectedDateAppBBar,
+        completedHabits: habitsData[selectedDayIndex], // <-- Empty list here
+        dates: const [],
+        completedHabitsMap: const {}, completedHabitDates: const [],
       ),
-    );
-  }
+    ),
+  );  */
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) =>const ProfilePage(habitsData: [],)
+    )
+  );
+  
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +284,7 @@ class _HabitTrackerPageState extends State<HabitTrackerPage> {
                             // Navigate to the Profile page when the "Save" button is pressed
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => CompletedHabitsPage(selectedDate: _selectedDateAppBBar, completedHabits: habitsData[selectedDayIndex], dates: const [], completedHabitsMap: const {},)),
+                              MaterialPageRoute(builder: (context) => ProfilePage(habitsData: habitsData)),
                             );
                           },
                           style: ElevatedButton.styleFrom(

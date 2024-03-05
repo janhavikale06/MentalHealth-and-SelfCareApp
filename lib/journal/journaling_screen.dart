@@ -145,7 +145,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 10, vertical:8), // Adjust padding as needed
                       child: Text(
                         'Save',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                        style: TextStyle(fontSize:18, color: Colors.white),
                       ),
                     ),
                   ),

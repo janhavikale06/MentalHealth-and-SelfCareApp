@@ -1,14 +1,15 @@
-// ignore_for_file: library_private_types_in_public_api, await_only_futures, use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, await_only_futures, use_build_context_synchronously, unnecessary_null_comparison, unused_local_variable
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:mental_health/mood_tracker/mood_stats.dart';
+import 'package:upliftu/profile/profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
+//import 'package:mental_health/mood_tracker/mood_stats.dart';
 
 class MoodTrackerPage extends StatefulWidget {
-   final Map<DateTime, String> moodData;
 
+  final Map<DateTime, String> moodData;
   const MoodTrackerPage({Key? key, required this.moodData}) : super(key: key);
 
   @override
@@ -43,90 +44,73 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
 
   void _updateSelectedMood(int index) {
     setState(() {
-      moodData = {...moodData};
       final selectedMood = moodNames[index];
-
       // Increment mood count
-      final moodCount = _countMoods();
-      moodCount[selectedMood] = (moodCount[selectedMood] ?? 0) + 1;
+      //final moodCount = _countMoods();
+      //moodCount[selectedMood] = (moodCount[selectedMood] ?? 0) + 1;
 
-      // Save updated mood count data
-      _saveMoodCountData(moodCount);
-
-      // Update selected date based on index
-      final previousDay = selectedDate.subtract(const Duration(days: 1));
-      final nextDay = selectedDate.add(const Duration(days: 1));
-
-      if (index > 0 && !moodData.containsKey(previousDay)) {
-        // Navigating to previous day's mood
-        moodData[previousDay] = moodNames[index - 1];
-        selectedDate = previousDay;
-      } else if (index < moodNames.length - 1 && !moodData.containsKey(nextDay)) {
-        // Navigating to next day's mood
-        moodData[nextDay] = moodNames[index + 1];
-        selectedDate = nextDay;
-      }
-      // Update the mood of the selected day
+      // Update the mood of the selected day (current day)
       moodData[selectedDate] = selectedMood;
+
+      // Save updated mood data
+      _saveMoodData();
+    
+      // Update selected date based on index only if it's not the first day
+      if (index > 0) {
+        final previousDay = selectedDate.subtract(const Duration(days: 1));
+
+        // Check if the previous day has a mood already set, otherwise, set to the original mood
+        final originalPreviousDayMood = widget.moodData[previousDay];
+        final updatedPreviousDayMood = moodData[previousDay];
+        moodData[previousDay] = originalPreviousDayMood ?? moodNames[index - 1];
+        selectedDate = previousDay;
+      }
     });
   }
 
-
-  void _navigateToMoodStatsPage() async {
-    Map<String, int> moodCounts = _countMoods(); // Get mood counts
-    await _saveMoodCountData(moodCounts); // Save mood counts before navigating
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MoodStatsPage(moodCounts: moodCounts),
-      ),
-    );
-  }
-
-  Map<String, int> _countMoods() {
-    Map<String, int> moodCount = {
-      "Very Bad": 0,
-      "Bad": 0,
-      "Neutral": 0,
-      "Good": 0,
-      "Happy": 0,
-    };
-
-    for (var mood in widget.moodData.values) {
-      moodCount[mood] = (moodCount[mood] ?? 0) + 1;
-    }
-    return moodCount;
-  }
 
   @override
   void initState() {
     super.initState();
-    _updateDateTime();
-    _initializeSharedPreferences();
-
-    // Initialize moodLabels and dates here using widget.moodData
-    moodLabels = widget.moodData.entries.map((entry) => entry.value).toList();
-    dates = widget.moodData.keys.toList();
+    _initializeSharedPreferences(); // Call this first
   }
 
   void _initializeSharedPreferences() async {
     prefs = await SharedPreferences.getInstance();
+    _updateDateTime();
     _loadMoodData();
+    moodLabels = widget.moodData.entries.map((entry) => entry.value).toList();
+    dates = widget.moodData.keys.toList();
+  }
+
+
+  void _saveMoodData() async {
+    if (prefs == null) {
+      // Handle the case when prefs is null
+      return;
+    }
+    final jsonData = json.encode(moodData.map((key, value) => MapEntry(key.toString(), value)));
+    await prefs.setString('moodData', jsonData);
+  }
+
+  void _navigateToProfilePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ProfilePage(habitsData: [[]]),
+      ),
+    );
   }
 
   void _loadMoodData() {
-    final String jsonData = prefs.getString('moodData') ?? '{}';
-    final Map<String, dynamic> savedData = json.decode(jsonData);
-    setState(() {
-      moodData = savedData.map((key, value) => MapEntry(DateTime.parse(key), value));
-    });
+    if (prefs != null) {
+      final String jsonData = prefs.getString('moodData') ?? '{}';
+      final Map<String, dynamic> savedData = json.decode(jsonData);
+      setState(() {
+        moodData = savedData.map((key, value) => MapEntry(DateTime.parse(key), value));
+      });
+    }
   }
-
-  Future<void> _saveMoodCountData(Map<String, int> moodCount) async {
-    final jsonData = json.encode(moodCount);
-    await prefs.setString('moodCountData', jsonData);
-  }
-
 
   void _updateDateTime() {
     final now = DateTime.now();
@@ -134,7 +118,6 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
     final formattedTime = "${now.hour}:${now.minute}";
     formattedDateTime = "$formattedDate - $formattedTime";
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +138,8 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
             width: double.infinity,
             height: double.infinity,
           ),
-          Container(
+          SingleChildScrollView(
+          child: Container(
             color: Colors.transparent,
             child: Column(
               children: [
@@ -169,97 +153,105 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                     });
                   },
                 ),
-                const SizedBox(height: 50),
-                const Text(
-                  'How are you feeling today?',
-                  style: TextStyle(
-                    fontSize: 29,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFAA77FF),
-                    shadows: [
-                      Shadow(
-                        color: Colors.white,
-                        offset: Offset(-1, -1),
-                        blurRadius: 5,
+                const SizedBox(height: 30),
+                SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'How are you feeling today?',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFAA77FF),
+                          shadows: [
+                            Shadow(
+                              color: Colors.white,
+                              offset: Offset(-1, -1),
+                              blurRadius: 5,
+                            ),
+                            Shadow(
+                              color: Color(0xFF97DEFF),
+                              offset: Offset(1, 1),
+                              blurRadius: 5,
+                            ),
+                          ],
+                        ),
                       ),
-                      Shadow(
-                        color: Color(0xFF97DEFF),
-                        offset: Offset(1, 1),
-                        blurRadius: 5,
+                      const SizedBox(height: 10),
+                      Text(
+                        formattedDateTime,
+                        style: const TextStyle(
+                          fontSize: 17,
+                          color: Color(0xFFAA77FF),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 10,
+                        runSpacing: 15,
+                        children: List.generate(moodImages.length, (index) {
+                        return GestureDetector(
+                          onTap: () => _updateSelectedMood(index),
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: moodData[selectedDate] == moodNames[index]
+                                  ? const Color(0xFFD8B4F8)
+                                  : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Image.asset(
+                                  moodImages[index],
+                                  width: 45,
+                                  height: 45,
+                                ),
+                              ),
+                              Text(
+                                moodNames[index],
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFFAA77FF),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        int index = 0;
+                        _updateSelectedMood(index);
+                        //_navigateToMoodStatsPage(); // Move the navigation here
+                        _navigateToProfilePage();
+                      },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFAA77FF),
+                          minimumSize: const Size(78, 32),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
+                        ),
+                        child: const Text(
+                          'Save',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  formattedDateTime,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    color: Color(0xFFAA77FF),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(moodImages.length, (index) {
-                    return GestureDetector(
-                      onTap: () => _updateSelectedMood(index),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.all(3.5),
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              color: moodData[selectedDate] == moodNames[index]
-                                  ? const Color(0xFFD8B4F8)
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Image.asset(
-                              moodImages[index],
-                              width: 50,
-                              height: 50,
-                            ),
-                          ),
-                          Text(
-                            moodNames[index],
-                            style: const TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFAA77FF),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
-                ),
-                const SizedBox(height: 20),
-                Align(
-  alignment: Alignment.center,
-  child: ElevatedButton(
-    onPressed: () {
-      int index = 0;
-      _updateSelectedMood(index);
-      _navigateToMoodStatsPage(); // Move the navigation here
-    },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFFAA77FF),
-      minimumSize: const Size(78, 32),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6),
-      ),
-      side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
-    ),
-    child: const Text(
-      'Save',
-      style: TextStyle(fontSize: 20, color: Colors.white),
-    ),
-  ),
-),
-
               ],
             ),
+          ),
           ),
         ],
       ),

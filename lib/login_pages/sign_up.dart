@@ -1,12 +1,19 @@
-// ignore_for_file: must_be_immutable, use_build_context_synchronously
+// ignore_for_file: must_be_immutable, use_build_context_synchronously, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mental_health/home_page.dart';
-import 'package:mental_health/login_pages/sign_in.dart';
+import 'package:upliftu/home_page1.dart';
+import 'package:upliftu/login_pages/sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mental_health/reuse.dart';
+import 'package:upliftu/reuse.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _fullnameTextController = TextEditingController();
@@ -14,8 +21,6 @@ class SignUpScreen extends StatelessWidget {
   String? _emailError;
   String? _passwordError;
   String? _fullnameError;
-
-  SignUpScreen({Key? key}) : super(key: key);
 
   Future<void> saveFullName(String fullName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -38,19 +43,19 @@ class SignUpScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-          Padding(
-          padding: const EdgeInsets.only(left: 28, top: 120, right: 28), // Adjust left and top values as needed
-          child: Container(
-            width: 330,
-            height: 250,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/loginPage.png'),
-                fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.only(left: 28, top: 120, right: 28),
+              child: Container(
+                width: 330,
+                height: 250,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/loginPage.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
               child: Column(
@@ -67,7 +72,7 @@ class SignUpScreen extends StatelessWidget {
                   reusableTextField(
                     "Enter Email",
                     Icons.person_2,
-                    true,
+                    false,
                     _emailTextController,
                     errorText: _emailError,
                   ),
@@ -82,18 +87,23 @@ class SignUpScreen extends StatelessWidget {
                   const SizedBox(height: 25),
                   ElevatedButton(
                     onPressed: () async {
-                      // Save the full name to shared preferences
-                      await saveFullName(_fullnameTextController.text);
+                      // Validate inputs before saving and navigating
+                      bool isValid = validateInputs();
 
-                      // Navigate to the home page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const homePage()),
-                      );
+                      if (isValid) {
+                        // Save the full name to shared preferences
+                        await saveFullName(_fullnameTextController.text);
+
+                        // Navigate to the home page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const homePage()),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFAA77FF),
-                      minimumSize: const Size(70, 40), // Adjust the size as needed
+                      minimumSize: const Size(70, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7),
                         side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
@@ -109,6 +119,7 @@ class SignUpScreen extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 30),
           ],
         ),
       ),
@@ -121,21 +132,61 @@ class SignUpScreen extends StatelessWidget {
       children: [
         const Text(
           "Already have an account?",
-          style: TextStyle(fontSize: 16 , color: Colors.black),
+          style: TextStyle(fontSize: 16, color: Colors.black),
         ),
         GestureDetector(
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SignIn()),
+              MaterialPageRoute(builder: (context) => const SignIn()),
             );
           },
           child: const Text(
             " Sign In",
-            style: TextStyle(fontSize: 16 , color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
       ],
     );
+  }
+
+  bool validateInputs() {
+    // Reset error messages
+    _emailError = null;
+    _passwordError = null;
+    _fullnameError = null;
+
+    // Validate full name
+    if (_fullnameTextController.text.isEmpty) {
+      setState(() {
+        _fullnameError = "First name field is required";
+      });
+    }
+
+    // Validate email
+    if (_emailTextController.text.isEmpty) {
+      setState(() {
+        _emailError = "Email field is required";
+      });
+    } else if (!isValidEmail(_emailTextController.text)) {
+      setState(() {
+        _emailError = "Invalid email id";
+      });
+    }
+
+    // Validate password
+    if (_passwordTextController.text.isEmpty) {
+      setState(() {
+        _passwordError = "Password field is required";
+      });
+    }
+
+    // Return validation result
+    return _emailError == null && _passwordError == null && _fullnameError == null;
+  }
+
+  bool isValidEmail(String email) {
+    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return emailRegex.hasMatch(email);
   }
 }

@@ -1,11 +1,15 @@
+/*
+
+
 // ignore_for_file: unnecessary_string_interpolations, camel_case_types, library_private_types_in_public_api
 import 'package:flutter/material.dart';
-import 'package:mental_health/survey/know_more_page.dart';
-import 'package:mental_health/profile/profile_page.dart';
-import 'package:mental_health/tracker_page.dart';
-import 'package:mental_health/selfcare_page.dart';
-import 'package:mental_health/mentalhealth_page.dart';
+//import 'package:upliftu/survey/know_more_page.dart';
+import 'package:upliftu/profile/profile_page.dart';
+import 'package:upliftu/tracker_page.dart';
+import 'package:upliftu/selfcare_page.dart';
+import 'package:upliftu/mentalhealth_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:upliftu/user_survey.dart';
 
 class homePage extends StatefulWidget {
   const homePage({Key? key}) : super(key: key);
@@ -145,15 +149,15 @@ class _HomePageState extends State<homePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const KnowMorePage()),
+                      MaterialPageRoute(builder: (context) => const UserSurvey()),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
+                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFAA77FF),
-                    minimumSize: const Size(80, 36),
+                    minimumSize: const Size(70, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7),
-                      side: const BorderSide(color: Color(0xFF97DEFF), width: 1),
+                      side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
                     ),
                   ),
                   child: const Text(
@@ -181,7 +185,7 @@ class _HomePageState extends State<homePage> {
         selectedPage = buildHomePage();
         break;
       case 1:
-        selectedPage = const TrackersPage();
+        selectedPage = const TrackerPage();
         break;
       case 2:
         selectedPage = const SelfCarePage();
@@ -246,3 +250,6 @@ class _HomePageState extends State<homePage> {
     );
   }
 }
+
+
+*/

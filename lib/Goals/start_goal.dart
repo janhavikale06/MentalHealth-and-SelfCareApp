@@ -71,8 +71,7 @@ class _StartGoalState extends State<StartGoal> {
                 'The remainders will be sent to you',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 18,
-                  //fontWeight: FontWeight.bold,
+                  fontSize: 17,
                 ),
               ),
               const SizedBox(height: 15),

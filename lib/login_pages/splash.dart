@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:mental_health/login_pages/sign_up.dart';
+import 'package:upliftu/login_pages/sign_up.dart';
 
 class UserProfileProvider with ChangeNotifier {
   List<String> habits = ['Reading', 'Exercise', 'Meditation'];
@@ -32,7 +32,7 @@ class _SplashState extends State<Splash> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => SignUpScreen(),
+        builder: (context) => const SignUpScreen(),
       ),
     );
   }
@@ -80,7 +80,7 @@ class _SplashState extends State<Splash> {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  'Welcome to MindTrack',
+                  'Welcome to UpLiftU',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -88,21 +88,7 @@ class _SplashState extends State<Splash> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                /*
-                Consumer<UserProfileProvider>(
-                  builder: (context, userProfileProvider, child) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        // Delete the first habit from the list
-                        if (userProfileProvider.habits.isNotEmpty) {
-                          userProfileProvider.deleteHabit(
-                              userProfileProvider.habits.first);
-                        }
-                      },
-                      child: const Text('Delete First Habit'),
-                    );
-                  },
-                ), */
+
               ],
             ),
           ),

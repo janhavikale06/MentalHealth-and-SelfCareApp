@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mental_health/survey/survey_page.dart';
+import 'package:upliftu/survey/survey_page.dart';
 
 class KnowMorePage extends StatefulWidget {
-  const KnowMorePage({Key? key}) : super(key: key);
+  const KnowMorePage({Key? key, required List<String> selectedOptions}) : super(key: key);
 
   @override
   _KnowMorePageState createState() => _KnowMorePageState();
@@ -80,14 +80,14 @@ class _KnowMorePageState extends State<KnowMorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 135, 213, 249),
+        backgroundColor: const Color(0xFFD8B4F8),
         title: const Text(
           'Personal Information',
           style: TextStyle(color: Colors.white, fontSize: 22),
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 16, top: 35, right: 16),
+        padding: const EdgeInsets.only(left: 16, top: 20, right: 16),
         child: Form(
           key: _formKey,
           child: Column(
@@ -95,13 +95,14 @@ class _KnowMorePageState extends State<KnowMorePage> {
             children: [
               const Text(
                 "Let's get to know a little bit about you!",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xFFAA77FF),
-                  fontSize: 23,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 28),
+              const SizedBox(height: 25),
               TextFormField(
                 controller: _fullnameController,
                 onChanged: (value) {
@@ -357,16 +358,16 @@ class _KnowMorePageState extends State<KnowMorePage> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF97DEFF),
-                    minimumSize: const Size(100, 45),
+                    backgroundColor: const Color(0xFFAA77FF),
+                    minimumSize: const Size(70, 40),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(7),
+                      side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
                     ),
-                    side: const BorderSide(color: Color(0xFFAA77FF), width: 2),
                   ),
                   child: const Text(
                     'Next',
-                    style: TextStyle(fontSize: 25, color: Color(0xFFAA77FF)),
+                    style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
               ),
@@ -375,6 +376,7 @@ class _KnowMorePageState extends State<KnowMorePage> {
           ),
         ),
       ),
+      backgroundColor: const Color.fromARGB(255, 195, 236, 255),
     );
   }
 }

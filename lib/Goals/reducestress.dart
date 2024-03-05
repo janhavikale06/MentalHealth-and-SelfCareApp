@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, camel_case_types
 
 import 'package:flutter/material.dart';
-import 'package:mental_health/Goals/start_goal.dart';
+import 'package:upliftu/Goals/start_goal.dart';
 
 class reduceStress extends StatefulWidget {
   const reduceStress({Key? key}) : super(key: key);
@@ -143,7 +143,7 @@ class _ReduceStressState extends State<reduceStress> {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 150),
                       ],
                     ),
                   ),

@@ -1,4 +1,4 @@
-# mental_health
+# upliftu
 
 A new Flutter project.
 

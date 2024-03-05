@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mental_health/sleep_monitoring/sleeptrackingpart.dart';
+import 'package:upliftu/sleep_monitoring/sleeptrackingpart.dart';
 
 class SleepMonitoringPage extends StatefulWidget {
   const SleepMonitoringPage({Key? key}) : super(key: key);
@@ -283,7 +283,6 @@ class _SleepMonitoringPageState extends State<SleepMonitoringPage> {
                           ],
                         ),
                       ),
-                      // Additional statistics widget content goes here for the second rectangle
                     ),
                   ],
                 ),
