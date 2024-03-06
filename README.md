@@ -20,6 +20,7 @@
 
 ![CompetitiveAnalyis](https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/cedc0951-8b7a-4f4a-bf46-d3e7bc540647)
 
+
 **User Flowchart:**
 
 <img width="2244" alt="github1" src="https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/536d1ef6-ac6f-4337-8b8d-e9d0fe4b73e2">
@@ -32,24 +33,34 @@
 
 <img width="2854" alt="FigmaApp" src="https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/14a3e771-b6c7-46e2-a3dd-e4076b093cda">
 
+
 **Designed App pages:**
 
 <img width="3291" alt="github3" src="https://github.com/janhavikale06/MentalHealth-and-SelfCareApp/assets/81229872/b600775d-307c-4d9e-ba61-aef5a35361fa">
+
 
 **Results:** The UpLiftU app ended up being about 105.4 MB in size. It includes lots of helpful features like tools for managing mental health, tracking moods, forming habits, and connecting with others for support. Users have told us that using the app has helped them feel less stressed, happier, and more productive. They particularly like features like habit tracking, writing, art therapy, music, meditation, mood tracking, fitness content, and journaling. The profile page, which shows data like habit tracking and mood graphs, has been especially useful for users to track their progress and understand how their mental health is changing over time. Overall, the feedback has been positive, and we're glad that the app is helping people improve their emotional well-being in an easy and friendly way.
 
 **References:**
 
 1. **Reference Papers:**
+
    a) Y. Zeng and Z. Wang, “Chinese family and change in the living arrangement among the elderly,” China Population Science, 5, 2020, pp.2-8 (in Chinese), Mental Health Tracker built using Flutter And Firebase, 2004.
+   
    b) Jan Bohacik, Ivan Skula, Michal Zabovsky, “Benefiting from online mental status examination system and mental health diagnostic system”, Computer Science and Information Systems (FedCSIS) 2020 15th Conference on, pp. 27-30, 2020.
+   
    c) Won Ju Hwang, Ji Sun Ha, and Mi Jeong Kim, “Research Trends on Mobile Mental Health Application for General Population: A Scoping Review”, 2021.
    
 3. **App Links:**
+   
    a) Daylio App:  https://daylio.net/
+   
    b) HabitNow:  HabitNow Daily Routine Planner – Apps on Google Play
+   
    c) Wysa: https://www.wysa.com/
-   d)HeadSpace: https://www.headspace.com/ 
+   
+   d)HeadSpace: https://www.headspace.com/
+   
 
 ## Getting Started
 
